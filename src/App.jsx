@@ -1,7 +1,17 @@
-export default function App() {
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { route } from './route'
+
+let App = () => {
   return (
-    <h1 className="text-3xl font-bold underline bg-red-50">
-      Hello world!
-    </h1>
+    <>
+      <Routes>
+        {route.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} exact />
+        ))}
+        <Route path="*" element={<Navigate to="/error" />} />
+      </Routes>
+    </>
   )
 }
+
+export default App
