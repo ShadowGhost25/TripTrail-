@@ -9,13 +9,16 @@ function Header() {
   }
   return (
     <header className=" dark:bg-gray-900">
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <Link className="block text-teal-600 dark:text-teal-300" href="#">
+      <div className="mx-auto flex h-16 max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
+        <Link className="block w-26 h-auto dark:text-teal-300" to="/">
           <img src="/src/img/logo.png" alt="logo" />
         </Link>
-        <div className="flex flex-1 items-center justify-end md:justify-between md:flex">
-          <nav aria-label="Global" className="hidden lg:block">
-            <ul className="flex items-center gap-6 text-sm">
+        <div className="flex flex-1 items-center justify-center md:justify-between md:flex">
+          <nav
+            aria-label="Global"
+            className=" size-full hidden lg:flex justify-center"
+          >
+            <ul className="flex items-center gap-2 text-sm">
               <li>
                 <Link
                   className="block rounded-lg hover:bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 dark:text-white dark:hover:text-gray-500 transition"
@@ -43,7 +46,7 @@ function Header() {
               <li>
                 <Link
                   className="block rounded-lg hover:bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 dark:text-white dark:hover:text-gray-500 transition"
-                  to="#"
+                  to="/aboutus"
                 >
                   О нас
                 </Link>

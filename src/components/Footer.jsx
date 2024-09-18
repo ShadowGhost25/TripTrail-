@@ -6,8 +6,10 @@ const Footer = () => {
       <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-7 sm:px-6 lg:space-y-16 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
-            <div className="text-teal-600">
-              <img src="/src/img/logo.png" alt="logo" />
+            <div>
+              <Link to="/">
+                <img src="/src/img/logo.png" alt="logo" />
+              </Link>
             </div>
             <p className="mt-4 max-w-xs text-gray-500 dark:text-gray-400">
               Отправляйся туда, куда мечтаешь,c нашим планировщиком под рукой.
@@ -158,7 +160,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    to="#"
+                    to="/aboutus"
                     className="text-gray-700 transition hover:opacity-75 dark:text-gray-400"
                   >
                     О нас
@@ -229,7 +231,7 @@ const Footer = () => {
                     </svg>
 
                     <span className="flex-1 text-gray-700 hover:opacity-75 dark:text-gray-400">
-                      test@gmail.com
+                      test@triptrail.com
                     </span>
                   </Link>
                 </li>
