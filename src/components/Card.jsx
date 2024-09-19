@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const Card = () => {
   return (
     <div className="my-8">
@@ -17,20 +19,20 @@ const Card = () => {
               <div className="mt-2">
                 <ul className="flex space-x-4">
                   <li>
-                    <a
-                      href="https://vk.com/natsudragnei"
+                    <Link
+                      to="https://vk.com/natsudragnei"
                       className="text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
                       VK
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://github.com/ShadowGhost25"
+                    <Link
+                      to="https://github.com/ShadowGhost25"
                       className="text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
                       GitHub
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -38,8 +40,8 @@ const Card = () => {
           </div>
           <ul className="mt-4 space-y-2">
             <li>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="block rounded-lg border border-gray-300 p-4 dark:border-gray-700 hover:border-teal-600 dark:hover:border-teal-400"
               >
                 <strong className="text-gray-900 dark:text-gray-100">
@@ -54,7 +56,7 @@ const Card = () => {
                   интуитивно понятного интерфейса и удобного пользовательского
                   опыта.
                 </p>
-              </a>
+              </Link>
             </li>
           </ul>
         </article>

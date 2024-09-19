@@ -4,6 +4,20 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 
 const AboutUs = () => {
+  const arr = [
+    {
+      title: 'Инновации:',
+      text: 'Мы стремимся к постоянному улучшению и внедрению новых технологий.',
+    },
+    {
+      title: 'Качество:',
+      text: 'Мы предоставляем только качественные решения и надежный сервис.',
+    },
+    {
+      title: 'Пользовательский опыт:',
+      text: 'Наша команда фокусируется на создании удобного и интуитивно понятного интерфейса',
+    },
+  ]
   return (
     <>
       <Header />
@@ -19,18 +33,11 @@ const AboutUs = () => {
         <div className="my-8">
           <h2 className="text-2xl font-semibold">Наши ценности</h2>
           <ul className="mt-4 space-y-4 list-disc list-inside">
-            <li>
-              <strong>Инновации:</strong> Мы стремимся к постоянному улучшению и
-              внедрению новых технологий.
-            </li>
-            <li>
-              <strong>Качество:</strong> Мы предоставляем только качественные
-              решения и надежный сервис.
-            </li>
-            <li>
-              <strong>Пользовательский опыт:</strong> Наша команда фокусируется
-              на создании удобного и интуитивно понятного интерфейса.
-            </li>
+            {arr.map((item, index) => (
+              <li key={index}>
+                <strong>{item.title}</strong> {item.text}
+              </li>
+            ))}
           </ul>
         </div>
         <Divider />
