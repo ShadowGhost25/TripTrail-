@@ -5,14 +5,15 @@ const NavFooter = () => {
     {
       title: 'Информация',
       link: [
-        { text: 'Создать маршрут' },
-        { text: 'Просмотреть маршруты' },
-        { text: 'О нас' },
+        { text: 'Создать маршрут', to: '/create' },
+        { text: 'Просмотреть маршруты', to: '/routes' },
+
+        { text: 'О нас', to: '/aboutus' },
       ],
     },
     {
       title: 'Помощь',
-      link: [{ text: 'Контактыя' }, { text: 'FAQs' }, { text: 'Live Chat' }],
+      link: [{ text: 'Контакты' }, { text: 'FAQs' }, { text: 'Live Chat' }],
     },
     {
       title: 'Cвязь с нами',
@@ -45,7 +46,7 @@ const NavFooter = () => {
               <li key={index} className="hover:opacity-75 transition">
                 <Link
                   className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
-                  to="#"
+                  to={subItem.to}
                 >
                   {subItem.d ? (
                     <svg

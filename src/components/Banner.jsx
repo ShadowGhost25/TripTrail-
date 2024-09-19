@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import CustomButton from './CustomButton'
 
 const Banner = () => {
   return (
@@ -14,19 +14,18 @@ const Banner = () => {
           </h1>
 
           <div className="mt-8 flex flex-wrap gap-4 text-center">
-            <Link
-              to="#"
-              className="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-teal-700 active:bg-teal-400 sm:w-auto"
-            >
-              Создать маршрут
-            </Link>
-
-            <Link
-              to="#"
-              className="block w-full rounded-md bg-gray-100  px-12 py-3 text-sm font-medium text-teal-600  hover:text-teal-600/75 sm:w-auto"
-            >
-              Просмотреть маршруты
-            </Link>
+            <CustomButton
+              index={4}
+              typeStyle={'banner'}
+              text={'Создать маршрут'}
+            />
+            <div className="w-full sm:w-auto">
+              <CustomButton
+                index={5}
+                typeStyle={'normal'}
+                text={'Посмотреть маршруты'}
+              />
+            </div>
           </div>
         </div>
       </div>
