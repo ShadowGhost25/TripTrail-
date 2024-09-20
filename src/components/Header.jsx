@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CustomButton from './CustomButton'
+import Logo from './Logo'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -8,7 +9,6 @@ function Header() {
     { title: 'Профиль', link: '/profile' },
     { title: 'Создать маршрут', link: '#' },
     { title: 'Просмотреть маршруты', link: '#' },
-    { title: 'О нас', link: '/aboutus' },
   ]
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -16,24 +16,20 @@ function Header() {
   return (
     <header className=" dark:bg-gray-900">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
-        <Link className="block w-26 h-auto dark:text-teal-300" to="/">
-          <img src="/src/img/logo.png" alt="logo" />
-        </Link>
+        <Logo />
         <div className="flex flex-1 items-center justify-center md:justify-between md:flex">
           <nav
             aria-label="Global"
             className=" size-full hidden lg:flex justify-center"
           >
-            <ul className="flex items-center gap-2 text-sm">
+            <ul className="flex px-4 items-center gap-4 sm:text-sm">
               {navArr.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    className="block rounded-lg hover:bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 dark:text-white dark:hover:text-gray-500 transition"
-                    to={item.link}
-                  >
-                    {item.title}
-                  </Link>
-                </li>
+                <CustomButton
+                  key={index}
+                  text={item.title}
+                  link={item.link}
+                  typeStyle={'navbar'}
+                />
               ))}
             </ul>
           </nav>
@@ -46,7 +42,8 @@ function Header() {
               index={1}
               text={'Авторизация'}
               typeStyle={'primary'}
-              link={'/login'}
+              colorText={'1'}
+              link={'/auth'}
             />
             <div className="hidden sm:block">
               <CustomButton
@@ -74,7 +71,7 @@ function Header() {
             <li key={index}>
               <Link
                 to={item.link}
-                className="block py-2 px-6  text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                className="block py-2 px-6 font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-gray-200"
               >
                 {item.title}
               </Link>

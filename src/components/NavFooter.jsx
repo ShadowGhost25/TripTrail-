@@ -13,7 +13,11 @@ const NavFooter = () => {
     },
     {
       title: 'Помощь',
-      link: [{ text: 'Контакты' }, { text: 'FAQs' }, { text: 'Live Chat' }],
+      link: [
+        { text: 'Контакты' },
+        { text: 'FAQ', to: '/faq' },
+        { text: 'Live Chat' },
+      ],
     },
     {
       title: 'Cвязь с нами',

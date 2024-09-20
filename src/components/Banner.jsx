@@ -14,15 +14,19 @@ const Banner = () => {
           </h1>
 
           <div className="mt-8 flex flex-wrap gap-4 text-center">
-            <CustomButton
-              index={4}
-              typeStyle={'banner'}
-              text={'Создать маршрут'}
-            />
+            <div className="w-full sm:w-auto">
+              <CustomButton
+                index={4}
+                typeStyle={'primary'}
+                colorText={'2'}
+                text={'Создать маршрут'}
+              />
+            </div>
             <div className="w-full sm:w-auto">
               <CustomButton
                 index={5}
                 typeStyle={'normal'}
+                colorText={'3'}
                 text={'Посмотреть маршруты'}
               />
             </div>

@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 const Card = () => {
   return (
-    <div className="my-8">
-      <h2 className="text-2xl font-semibold">Наша команда</h2>
+    <div className="my-4">
+      <h2 className="text-2xl font-semibold sm:px-6">Наша команда</h2>
       <div className="mt-4 flex justify-center gap-8 md:grid-cols-2 lg:grid-cols-3">
         <article className="rounded-lg border border-gray-200 bg-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center gap-4">

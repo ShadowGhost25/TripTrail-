@@ -7,6 +7,9 @@ export default {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      maxWidth: {
+        'custom-xl': '1216px',
+      },
     },
   },
   darkMode: 'class',
