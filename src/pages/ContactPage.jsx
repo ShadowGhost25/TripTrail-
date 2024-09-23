@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import Maps from '../components/Maps'
 
 const ContactPage = () => {
   return (
@@ -18,7 +19,6 @@ const ContactPage = () => {
                 Если у вас есть вопросы или предложения, вы можете связаться с
                 нами по следующим каналам:
               </p>
-              {/* Контактная информация */}
               <address className="not-italic">
                 <h3 className="text-lg font-semibold mb-2">Наш офис</h3>
                 <p className="mb-2">Адрес: 412421 Россия, Пенза </p>
@@ -106,8 +106,9 @@ const ContactPage = () => {
           <h2 id="map" className="text-xl font-semibold mb-4">
             Как нас найти
           </h2>
-          {/* Можно добавить встроенную карту, например через Google Maps API */}
-          <div className="w-full h-64 bg-gray-200">[Здесь будет карта]</div>
+          <div className="w-full h-64 bg-gray-200">
+            <Maps />
+          </div>
         </section>
       </main>
       <Footer />
