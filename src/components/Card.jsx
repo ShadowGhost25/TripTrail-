@@ -2,21 +2,26 @@ import { Link } from 'react-router-dom'
 
 const Card = () => {
   return (
-    <div className="my-4">
-      <h2 className="text-2xl font-semibold sm:px-6">Наша команда</h2>
+    <section className="my-4">
+      <header>
+        <h2 className="text-2xl font-semibold sm:px-6">Наша команда</h2>
+      </header>
       <div className="mt-4 flex justify-center gap-8 md:grid-cols-2 lg:grid-cols-3">
         <article className="rounded-lg border border-gray-200 bg-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center gap-4">
-            <img
-              alt="Team member"
-              src="/src/img/photo.png"
-              className="h-16 w-16 rounded-full object-cover"
-            />
+            <figure>
+              <img
+                alt="Team member"
+                src="/src/img/photo.png"
+                className="h-16 w-16 rounded-full object-cover"
+              />
+              <figcaption className="sr-only">Фото Ильи Вавилина</figcaption>
+            </figure>
             <div>
               <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                 Илья Вавилин
               </h3>
-              <div className="mt-2">
+              <nav className="mt-2">
                 <ul className="flex space-x-4">
                   <li>
                     <Link
@@ -35,7 +40,7 @@ const Card = () => {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </nav>
             </div>
           </div>
           <ul className="mt-4 space-y-2">
@@ -61,7 +66,7 @@ const Card = () => {
           </ul>
         </article>
       </div>
-    </div>
+    </section>
   )
 }
 

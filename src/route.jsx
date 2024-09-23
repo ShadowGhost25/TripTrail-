@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import AuthPage from './pages/AuthPage'
 import FaqPage from './pages/FaqPage'
+import ContactPage from './pages/ContactPage'
 
 export const route = [
   { path: '/', element: <MainPage /> },
@@ -14,4 +15,5 @@ export const route = [
   { path: '/auth', element: <AuthPage /> },
   { path: '/privacypolicy', element: <PrivacyPolicyPage /> },
   { path: '/faq', element: <FaqPage /> },
+  { path: '/contacts', element: <ContactPage /> },
 ]

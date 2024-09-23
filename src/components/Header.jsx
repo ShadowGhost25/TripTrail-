@@ -10,6 +10,16 @@ function Header() {
     { title: 'Создать маршрут', link: '#' },
     { title: 'Просмотреть маршруты', link: '#' },
   ]
+  const navArrBurgerMenu = localStorage.getItem('key')
+    ? [
+        { title: 'Профиль', link: '/profile' },
+        { title: 'Создать маршрут', link: '#' },
+        { title: 'Просмотреть маршруты', link: '#' },
+      ]
+    : [
+        { title: 'Авторизоваться', link: '/auth' },
+        { title: 'Зарегестрироваться', link: '/register' },
+      ]
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -36,14 +46,16 @@ function Header() {
         </div>
 
         <div className="flex items-center gap-4 ">
-          <CustomButton
-            className="hover:text-teal-600"
-            index={1}
-            text={'Авторизация'}
-            typeStyle={'primary'}
-            colorText={'1'}
-            link={'/auth'}
-          />
+          <div className="hidden sm:block">
+            <CustomButton
+              className="hover:text-teal-600"
+              index={1}
+              text={'Авторизация'}
+              typeStyle={'primary'}
+              colorText={'1'}
+              link={'/auth'}
+            />
+          </div>
           <div className="hidden sm:block">
             <CustomButton
               index={2}
@@ -65,7 +77,7 @@ function Header() {
         className={`mx-auto box-border ${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}
       >
         <ul className="divide-y dark:divide-gray-800">
-          {navArr.map((item, index) => (
+          {navArrBurgerMenu.map((item, index) => (
             <li key={index}>
               <Link
                 to={item.link}

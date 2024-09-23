@@ -29,13 +29,12 @@ const Footer = () => {
     <footer className="bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-7 sm:px-6 lg:space-y-16 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div>
+          <section>
             <Logo />
             <p className="mt-4 max-w-xs text-gray-500 dark:text-gray-400">
               Отправляйся туда, куда мечтаешь, <br />c нашим планировщиком под
               рукой.
             </p>
-
             <ul className="mt-8 flex gap-6">
               {arr.map((item, index) => (
                 <li key={index}>
@@ -59,7 +58,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
           <NavFooter />
         </div>
         <p className="text-xs text-gray-500 dark:text-gray-400">
