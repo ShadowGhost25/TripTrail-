@@ -12,7 +12,7 @@ const CustomButton = ({
 }) => {
   const navigate = useNavigate()
   const handleClick = () => {
-    // Если передан click, выполните его
+    // Если передан click, выполнит его
     if (click) {
       click()
     }
@@ -24,9 +24,9 @@ const CustomButton = ({
   const buttonStyles = (type) => {
     switch (type) {
       case 'primary':
-        return 'inline-block w-full rounded-md border border-teal-600 bg-teal-600 px-8 py-3 text-sm   font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:hover:text-white dark:hover:bg-transparent'
+        return 'inline-block w-full rounded-md border border-teal-600 bg-teal-600 px-4 py-2.5 text-sm font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:hover:text-white dark:hover:bg-transparent sm:px-8 sm:py-2.5'
       case 'normal':
-        return 'inline-block w-full rounded-md bg-gray-100 px-8 py-3 text-sm  font-medium text-teal-600 transition border border-gray-100 hover:text-teal-600/75 hover:bg-transparent hover:border-teal-600 sm:block dark:border dark:border-gray-600 dark:bg-gray-600 dark:text-white dark:hover:bg-transparent dark:hover:border dark:hover:border-teal-600'
+        return 'inline-block w-full rounded-md bg-gray-100 px-8 py-3 text-sm  font-medium text-teal-600 transition border border-gray-100 hover:text-teal-600/75 hover:bg-transparent hover:border-teal-600 sm:block dark:border dark:border-gray-600 dark:bg-gray-600 dark:text-white dark:hover:bg-transparent dark:hover:border dark:hover:border-teal-600 sm:px-8 sm:py-2.5'
       case 'burgermenu':
         return 'block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 lg:hidden'
       case 'navbar':

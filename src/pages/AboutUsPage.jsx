@@ -22,7 +22,7 @@ const AboutUs = () => {
     <>
       <Header />
       <div className="mx-auto my-4 px-4 max-w-custom-xl items-center gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 sm:px-6 lg:px-8 xl:px-0">
-        <div className="rounded-lg p-6 mb-4 dark:bg-gray-800 sm:p-6">
+        <div className="bg-gray-200 rounded-lg p-6 mb-4 dark:bg-gray-800 sm:p-6">
           <h2 className="text-2xl font-semibold">О нас</h2>
           <p className="my-8 text-base leading-7">
             Мы - команда профессионалов, посвятивших себя созданию уникального
@@ -32,7 +32,7 @@ const AboutUs = () => {
           </p>
         </div>
         <Divider />
-        <div className="rounded-lg my-4 p-6 dark:bg-gray-800 sm:p-6">
+        <div className=" bg-gray-200 rounded-lg my-4 p-6 dark:bg-gray-800 sm:p-6">
           <h2 className="text-2xl font-semibold">Наши ценности</h2>
           <ul className="mt-4 space-y-4 list-disc list-inside">
             {arr.map((item, index) => (
@@ -45,7 +45,7 @@ const AboutUs = () => {
         <Divider />
         <Card />
         <Divider />
-        <div className="rounded-lg my-4 p-6 dark:bg-gray-800 sm:p-6">
+        <div className="bg-gray-200 rounded-lg my-4 p-6 dark:bg-gray-800 sm:p-6">
           <h2 className="text-2xl font-semibold">Свяжитесь с нами</h2>
           <p className="mt-4">
             Мы всегда рады вашим отзывам и предложениям. Свяжитесь с нами по

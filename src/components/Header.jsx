@@ -35,24 +35,22 @@ function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="sm:flex sm:gap-4">
+        <div className="flex items-center gap-4 ">
+          <CustomButton
+            className="hover:text-teal-600"
+            index={1}
+            text={'Авторизация'}
+            typeStyle={'primary'}
+            colorText={'1'}
+            link={'/auth'}
+          />
+          <div className="hidden sm:block">
             <CustomButton
-              className="hover:text-teal-600"
-              index={1}
-              text={'Авторизация'}
-              typeStyle={'primary'}
-              colorText={'1'}
-              link={'/auth'}
+              index={2}
+              text={'Регистрация'}
+              typeStyle={'normal'}
+              link={'/register'}
             />
-            <div className="hidden sm:block">
-              <CustomButton
-                index={2}
-                text={'Регистрация'}
-                typeStyle={'normal'}
-                link={'/register'}
-              />
-            </div>
           </div>
 
           <CustomButton
