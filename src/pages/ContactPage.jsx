@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Maps from '../components/Maps'
-
 const ContactPage = () => {
   return (
     <>
@@ -106,9 +105,7 @@ const ContactPage = () => {
           <h2 id="map" className="text-xl font-semibold mb-4">
             Как нас найти
           </h2>
-          <div className="w-full h-64 bg-gray-200">
-            <Maps />
-          </div>
+          <Maps />
         </section>
       </main>
       <Footer />
