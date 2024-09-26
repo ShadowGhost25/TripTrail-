@@ -1,45 +1,27 @@
-import { Map, Placemark } from '@pbe/react-yandex-maps
+import { useEffect } from 'react'
+
 const Maps = () => {
-  // const [location, setLocation] = useState(null)
-  // console.log(location)
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       const { latitude, longitude } = position.coords
-  //       setLocation([latitude, longitude]) // Сохраняем координаты в состоянии
-  //     },
-  //     (error) => {
-  //       console.error('Ошибка получения местоположения: ', error)
-  //     },
-  //   )
-  // }, [])
+  useEffect(() => {
+    const initMap = () => {
+      const map = new window.ymaps.Map('map', {
+        center: [55.75, 37.57], // Координаты центра карты
+        zoom: 10, // Уровень масштабирования
+      })
 
-  const onLoad = () => {
-    const teg = document.getElementsByClassName('ymaps-2-1-79-gototech')
-    if (teg.length > 0) {
-      teg[0].classList.remove('a.ymaps-2-1-79-gototech')
-      teg[0].style.display = 'none'
+      // Добавление метки
+      const placemark = new window.ymaps.Placemark([55.75, 37.57], {
+        balloonContent: 'Это место на карте!',
+      })
+
+      map.geoObjects.add(placemark)
     }
-    // teg[0].style.color = 'red'
-    // console.log((teg[0].style.display = 'none !important'))
-    // console.log(teg[0])
-    // Дополнительные действия после загрузки карты
-  }
 
-  return (
-    <Map
-      className="w-full h-[400px] yandexMap"
-      onLoad={onLoad}
-      defaultState={{
-        center: [53.2007377, 45.0166208],
-        zoom: 19,
-        controls: ['zoomControl', 'fullscreenControl'],
-      }}
-      options={{ suppressMapOpenBlock: true }}
-    >
-      <Placemark defaultGeometry={[53.2007377, 45.0166208]} />
-    </Map>
-  )
+    if (window.ymaps) {
+      window.ymaps.ready(initMap)
+    }
+  }, [])
+
+  return <div id="map" style={{ width: '100vw', height: '400px' }}></div>
 }
 
 export default Maps
