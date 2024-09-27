@@ -5,8 +5,8 @@ const NavFooter = () => {
     {
       title: 'Информация',
       link: [
-        { text: 'Создать маршрут', to: '/create' },
-        { text: 'Просмотреть маршруты', to: '/routes' },
+        { text: 'Создать маршрут', to: '/createroute' },
+        { text: 'Просмотреть маршруты', to: '/viewroute' },
 
         { text: 'О нас', to: '/aboutus' },
       ],

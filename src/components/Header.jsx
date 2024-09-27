@@ -7,8 +7,8 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navArr = [
     { title: 'Профиль', link: '/profile' },
-    { title: 'Создать маршрут', link: '#' },
-    { title: 'Просмотреть маршруты', link: '#' },
+    { title: 'Создать маршрут', link: '/createroute' },
+    { title: 'Просмотреть маршруты', link: '/viewroute' },
   ]
   const navArrBurgerMenu = localStorage.getItem('key')
     ? [
@@ -48,7 +48,6 @@ function Header() {
         <div className="flex items-center gap-4 ">
           <div className="hidden sm:block">
             <CustomButton
-              className="hover:text-teal-600"
               index={1}
               text={'Авторизация'}
               typeStyle={'primary'}
