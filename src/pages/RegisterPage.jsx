@@ -1,8 +1,51 @@
 import { Link } from 'react-router-dom'
 import Logo from '../components/Logo'
 import CustomButton from '../components/CustomButton'
+import CustomInput from '../components/CustomInput'
 
 const RegisterPage = () => {
+  const arrInput = [
+    {
+      typeStyle: 'col-span-6 sm:col-span-3',
+      htmlFor: 'FirstName',
+      text: 'Имя',
+      type: 'text',
+      id: 'FirstName',
+      placeholder: 'Имя',
+    },
+    {
+      typeStyle: 'col-span-6 sm:col-span-3',
+      htmlFor: 'LastName',
+      text: 'Фамилия',
+      type: 'text',
+      id: 'LastName',
+      placeholder: 'Фамилия',
+    },
+    {
+      typeStyle: 'col-span-6',
+      htmlFor: 'Email',
+      text: 'Email',
+      type: 'email',
+      id: 'Email',
+      placeholder: 'test@triptrail.com',
+    },
+    {
+      typeStyle: 'col-span-6 sm:col-span-3',
+      htmlFor: 'Password',
+      text: 'Пароль',
+      type: 'password',
+      id: 'Password',
+      placeholder: '123456',
+    },
+    {
+      typeStyle: 'col-span-6 sm:col-span-3',
+      htmlFor: 'PasswordConfirmation',
+      text: 'Повторный пароль',
+      type: 'password',
+      id: 'PasswordConfirmation',
+      placeholder: '123456',
+    },
+  ]
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -28,95 +71,17 @@ const RegisterPage = () => {
             </p>
 
             <form action="#" className="mt-8 grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="FirstName"
-                  className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Имя
-                  </span>
-
-                  <input
-                    type="text"
-                    id="FirstName"
-                    placeholder="Имя"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+              {arrInput.map((item, index) => (
+                <div key={index} className={item.typeStyle}>
+                  <CustomInput
+                    htmlFor={item.htmlFor}
+                    text={item.text}
+                    type={item.type}
+                    id={item.id}
+                    placeholder={item.placeholder}
                   />
-                </label>
-              </div>
-
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="LastName"
-                  className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Фамилия
-                  </span>
-
-                  <input
-                    type="text"
-                    id="LastName"
-                    placeholder="Фамилия"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                  />
-                </label>
-              </div>
-
-              <div className="col-span-6">
-                <label
-                  htmlFor="Email"
-                  className="block overflow-hidden rounded-md border  bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Email
-                  </span>
-
-                  <input
-                    type="email"
-                    id="Email"
-                    placeholder="test@triptrail.com"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                  />
-                </label>
-              </div>
-
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="password"
-                  className="block overflow-hidden rounded-md border  bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Password
-                  </span>
-
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="test"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                  />
-                </label>
-              </div>
-
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="PasswordConfirmation"
-                  className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Password
-                  </span>
-
-                  <input
-                    type="password"
-                    id="PasswordConfirmation"
-                    placeholder="test"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                  />
-                </label>
-              </div>
+                </div>
+              ))}
 
               <div className="col-span-6">
                 <label htmlFor="MarketingAccept" className="flex gap-4">
@@ -124,7 +89,7 @@ const RegisterPage = () => {
                     type="checkbox"
                     id="MarketingAccept"
                     name="marketing_accept"
-                    className=" size-5 rounded-md border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:focus:ring-offset-gray-900"
+                    className="size-5 rounded-md  "
                   />
 
                   <span className="text-sm text-gray-700 dark:text-gray-200">

@@ -26,7 +26,7 @@ const AboutUs = () => {
           <header>
             <h2 className="text-2xl font-semibold">О нас</h2>
           </header>
-          <p className="my-8 text-base leading-7">
+          <p className="my-4 text-base leading-7">
             Мы - команда профессионалов, посвятивших себя созданию уникального
             приложения для планирования путешествий. Наша цель - сделать ваши
             путешествия проще и удобнее, предлагая вам лучшие инструменты для

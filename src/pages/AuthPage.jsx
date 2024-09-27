@@ -1,8 +1,25 @@
 import { Link } from 'react-router-dom'
 import CustomButton from '../components/CustomButton'
 import Logo from '../components/Logo'
+import CustomInput from '../components/CustomInput'
 
 const AuthPage = () => {
+  const arrInput = [
+    {
+      htmlFor: 'Email',
+      text: 'Email',
+      type: 'email',
+      id: 'Email',
+      placeholder: 'test@triptrail.com',
+    },
+    {
+      htmlFor: 'Password',
+      text: 'Password',
+      type: 'password',
+      id: 'Password',
+      placeholder: 'test',
+    },
+  ]
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -26,50 +43,27 @@ const AuthPage = () => {
             </p>
 
             <form action="#" className="mt-8 grid grid-cols-6 gap-6">
-              <div className="col-span-6">
-                <label
-                  htmlFor="Email"
-                  className="block overflow-hidden rounded-md border  bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Email
-                  </span>
-
-                  <input
-                    type="email"
-                    id="Email"
-                    placeholder="test@triptrail.com"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+              {arrInput.map((item, index) => (
+                <div key={index} className="col-span-6">
+                  <CustomInput
+                    htmlFor={item.htmlFor}
+                    text={item.text}
+                    type={item.type}
+                    id={item.id}
+                    placeholder={item.placeholder}
                   />
-                </label>
-              </div>
+                </div>
+              ))}
 
-              <div className="col-span-6">
-                <label
-                  htmlFor="password"
-                  className="block overflow-hidden rounded-md border  bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
+              <p className="col-span-6 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
+                <Link
+                  to="/register"
+                  className="text-gray-700 underline dark:text-gray-200"
                 >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                    Password
-                  </span>
+                  Забыли пароль ?
+                </Link>
+              </p>
 
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="test"
-                    className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                  />
-                </label>
-
-                <p className="pt-2 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
-                  <Link
-                    to="/register"
-                    className="text-gray-700 underline dark:text-gray-200"
-                  >
-                    Забыли пароль ?
-                  </Link>
-                </p>
-              </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <div>
                   <CustomButton

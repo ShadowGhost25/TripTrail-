@@ -6,6 +6,9 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import AuthPage from './pages/AuthPage'
 import FaqPage from './pages/FaqPage'
 import ContactPage from './pages/ContactPage'
+import CreateRoute from './pages/CreateRoute'
+import ViewRoutes from './pages/ViewRoute'
+import Profile from './pages/Profile'
 
 export const route = [
   { path: '/', element: <MainPage /> },
@@ -16,4 +19,7 @@ export const route = [
   { path: '/privacypolicy', element: <PrivacyPolicyPage /> },
   { path: '/faq', element: <FaqPage /> },
   { path: '/contacts', element: <ContactPage /> },
+  { path: '/createroute', element: <CreateRoute /> },
+  { path: '/viewroute', element: <ViewRoutes /> },
+  { path: '/profile', element: <Profile /> },
 ]

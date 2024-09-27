@@ -30,7 +30,7 @@ const CustomButton = ({
       case 'burgermenu':
         return 'block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 lg:hidden'
       case 'navbar':
-        return 'inline-block w-[145px] h-[46px] text-sm rounded-md border text-gray-700 px-3 font-medium transition hover:border-teal-600  hover:bg-gray-200 hover:text-gray-800 hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:text-white dark:hover:text-white dark:hover:bg-transparent'
+        return 'inline-block w-[145px] h-[42px] text-sm rounded-md leading-[1rem] border text-gray-700 px-3 font-medium transition hover:border-teal-600  hover:bg-gray-200 hover:text-gray-800 hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:text-white dark:hover:text-white dark:hover:bg-transparent'
       default:
         return ''
     }
