@@ -1,14 +1,17 @@
+import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import Divider from '../components/Divider'
 
 const PrivacyPolicyPage = () => {
   return (
-    <>
+    <div className="div-container">
       <Header />
-      <div className="mx-auto max-w-screen-xl items-center gap-8  py-10 px-4  dark:bg-gray-900 text-gray-900 dark:text-gray-100 sm:px-6 lg:px">
-        <h1 className="text-3xl font-bold mb-6">Политика конфиденциальности</h1>
-
-        <section className="mb-8">
+      <main className="main-container">
+        <section className="block-container">
+          <h1 className="text-3xl font-bold mb-6">
+            Политика конфиденциальности
+          </h1>
           <h2 className="text-2xl font-semibold mb-4">1. Общие положения</h2>
           <p>
             Настоящая Политика конфиденциальности регулирует порядок обработки и
@@ -18,8 +21,8 @@ const PrivacyPolicyPage = () => {
             конфиденциальности.
           </p>
         </section>
-
-        <section className="mb-8">
+        <Divider />
+        <section className="block-container">
           <h2 className="text-2xl font-semibold mb-4">
             2. Сбор и использование персональных данных
           </h2>
@@ -37,8 +40,8 @@ const PrivacyPolicyPage = () => {
             </li>
           </ul>
         </section>
-
-        <section className="mb-8">
+        <Divider />
+        <section className="block-container">
           <h2 className="text-2xl font-semibold mb-4">
             3. Передача и хранение данных
           </h2>
@@ -48,8 +51,8 @@ const PrivacyPolicyPage = () => {
             обязательств или предоставления услуг.
           </p>
         </section>
-
-        <section className="mb-8">
+        <Divider />
+        <section className="block-container">
           <h2 className="text-2xl font-semibold mb-4">
             4. Права пользователей
           </h2>
@@ -59,20 +62,22 @@ const PrivacyPolicyPage = () => {
             электронной почте: test@triptrail.com
           </p>
         </section>
-
-        <section className="mb-8">
+        <Divider />
+        <section className="block-container">
           <h2 className="text-2xl font-semibold mb-4">
             5. Контактная информация
           </h2>
           <p>
             Если у вас есть вопросы по поводу этой Политики конфиденциальности
             или обработки ваших данных, свяжитесь с нами по электронной почте:
-            test@triptrail.com
+            <address className=" text-teal-600 dark:text-teal-400">
+              <Link to={'mailto:test@triptrail.com'}>test@triptrail.com</Link>
+            </address>
           </p>
         </section>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

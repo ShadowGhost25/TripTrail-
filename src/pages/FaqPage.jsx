@@ -33,13 +33,13 @@ const FaqcPage = () => {
     },
   ]
   return (
-    <>
+    <div className="div-container">
       <Header />
-      <div className="mx-auto max-w-screen-xl p-4 sm:px-6 lg:px-8 xl:p-8">
+      <main className="main-container">
         {faqArr.map((item, index) => (
           <details
             key={index}
-            className="group border-s-4 border-teal-500 bg-gray-50 px-6 py-6 mb-4 dark:bg-gray-800 [&_summary::-webkit-details-marker]:hidden"
+            className="group border-s-4 border-teal-500 bg-gray-200 px-6 py-6 mb-4 dark:bg-gray-800 [&_summary::-webkit-details-marker]:hidden"
           >
             <summary className="flex cursor-pointer items-center justify-between gap-1.5">
               <h2 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -67,9 +67,9 @@ const FaqcPage = () => {
             </p>
           </details>
         ))}
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

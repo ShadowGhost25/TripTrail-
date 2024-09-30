@@ -11,7 +11,7 @@ const Divider = () => {
   ]
   const randomItem = arr[Math.floor(Math.random() * arr.length)]
   return (
-    <span className="flex items-center">
+    <span className="flex items-center my-4">
       <span className="h-px flex-1 bg-black dark:bg-white"></span>
       <span className="shrink-0 px-6">{randomItem}</span>
       <span className="h-px flex-1 bg-black dark:bg-white"></span>

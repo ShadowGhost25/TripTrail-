@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import CustomButton from '../components/CustomButton'
 import Logo from '../components/Logo'
 import CustomInput from '../components/CustomInput'
+import DarkMod from '../components/DarkMod'
 
 const AuthPage = () => {
   const arrInput = [
@@ -26,15 +27,15 @@ const AuthPage = () => {
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="turism"
-            src="/src/img/turism.jpg"
+            src="https://images.wallpaperscraft.ru/image/single/gory_ozero_vershiny_119133_3840x2400.jpg"
             className="absolute inset-0 h-full w-full object-cover"
           />
         </aside>
         <main className="flex items-center justify-center px-6 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
           <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-900">
             <Logo />
-
-            <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl dark:text-white">
+            <DarkMod />
+            <h1 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl dark:text-white">
               Авторизация
             </h1>
 

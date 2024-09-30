@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CustomButton from './CustomButton'
 import Logo from './Logo'
+import DarkMod from './DarkMod'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -24,10 +25,13 @@ function Header() {
     setIsMenuOpen(!isMenuOpen)
   }
   return (
-    <header className=" dark:bg-gray-900">
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
-        <Logo />
-        <div className="flex flex-1 items-center justify-center md:justify-between md:flex">
+    <header className="mt-4 dark:bg-gray-900">
+      <div className="mx-auto flex max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
+        <div>
+          <Logo />
+          <DarkMod />
+        </div>
+        <div className="min-h-[84px] flex-1">
           <nav
             aria-label="Global"
             className=" size-full hidden lg:flex justify-center"
@@ -45,7 +49,7 @@ function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4 ">
+        <div className="min-h-[84px] flex  gap-4 ">
           <div className="hidden sm:block">
             <CustomButton
               index={1}
@@ -63,13 +67,14 @@ function Header() {
               link={'/register'}
             />
           </div>
-
-          <CustomButton
-            index={3}
-            typeStyle={'burgermenu'}
-            click={toggleMenu}
-            svg={true}
-          />
+          <div className="lg:hidden">
+            <CustomButton
+              index={3}
+              typeStyle={'burgermenu'}
+              click={toggleMenu}
+              svg={true}
+            />
+          </div>
         </div>
       </div>
       <div

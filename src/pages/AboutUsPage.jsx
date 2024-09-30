@@ -19,10 +19,10 @@ const AboutUs = () => {
     },
   ]
   return (
-    <>
+    <div className="div-container">
       <Header />
-      <main className="mx-auto my-4 px-4 max-w-custom-xl items-center gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 sm:px-6 lg:px-8 xl:px-0">
-        <section className="bg-gray-200 rounded-lg p-6 mb-4 dark:bg-gray-800 sm:p-6">
+      <main className="main-container">
+        <section className="block-container">
           <header>
             <h2 className="text-2xl font-semibold">О нас</h2>
           </header>
@@ -34,7 +34,7 @@ const AboutUs = () => {
           </p>
         </section>
         <Divider />
-        <section className=" bg-gray-200 rounded-lg my-4 p-6 dark:bg-gray-800 sm:p-6">
+        <section className="block-container">
           <header>
             <h2 className="text-2xl font-semibold">Наши ценности</h2>
           </header>
@@ -47,11 +47,9 @@ const AboutUs = () => {
           </ul>
         </section>
         <Divider />
-        <section>
-          <Card />
-        </section>
+        <Card />
         <Divider />
-        <section className="bg-gray-200 rounded-lg my-4 p-6 dark:bg-gray-800 sm:p-6">
+        <section className="block-container">
           <header>
             <h2 className="text-2xl font-semibold">Свяжитесь с нами</h2>
           </header>
@@ -65,7 +63,7 @@ const AboutUs = () => {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

@@ -3,11 +3,13 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 const MainPage = () => {
   return (
-    <>
+    <div className="div-container">
       <Header />
-      <Banner />
+      <div className="main-container">
+        <Banner />
+      </div>
       <Footer />
-    </>
+    </div>
   )
 }
 

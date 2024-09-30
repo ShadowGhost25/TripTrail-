@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import CustomButton from '../components/CustomButton'
+import Divider from '../components/Divider'
 
-// Пример списка маршрутов (данные могут поступать из базы данных или API)
 const exampleRoutes = [
   {
-    id: 1,
     name: 'Маршрут по Москве',
     places: [
       { name: 'Красная площадь', lat: 55.753215, lng: 37.622504 },
@@ -16,7 +16,6 @@ const exampleRoutes = [
     budget: { transport: 500, accommodation: 2000, food: 1000 },
   },
   {
-    id: 2,
     name: 'Тур по Санкт-Петербургу',
     places: [
       { name: 'Эрмитаж', lat: 59.939832, lng: 30.31456 },
@@ -29,104 +28,112 @@ const exampleRoutes = [
 
 const ViewRoutes = () => {
   const [selectedRoute, setSelectedRoute] = useState(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const calculateTotalBudget = (budget) => {
     return budget.transport + budget.accommodation + budget.food
   }
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+  useEffect(() => {
+    const button = document.getElementsByTagName('button')
+    button[6].classList.add('pr-2')
+  })
 
   return (
-    <>
+    <div className="div-container">
       <Header />
-      <main className="mx-auto my-4 px-4 max-w-custom-xl items-center gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 sm:px-6 lg:px-8 xl:px-0">
-        <h1 className="text-2xl font-bold mb-4">Просмотреть маршруты</h1>
-
-        <div className="mb-4">
-          <h2 className="text-lg font-bold">Список маршрутов</h2>
+      <main className="main-container">
+        <div className="block-container">
+          <h1 className="text-2xl font-bold mb-4">Просмотреть маршруты</h1>
+          <CustomButton
+            index={3}
+            typeStyle={'burgermenu'}
+            click={toggleMenu}
+            svg={true}
+            text={'Список маршрутов'}
+          />
+        </div>
+        <div className={`${isMenuOpen ? 'block' : 'hidden'}`}>
           <ul>
-            {exampleRoutes.map((route) => (
-              <li
-                key={route.id}
-                className={`cursor-pointer mb-2 p-2 border rounded ${
-                  selectedRoute?.id === route.id ? 'bg-blue-100' : ''
-                }`}
-                onClick={() => setSelectedRoute(route)}
-              >
-                {route.name}
-              </li>
+            {exampleRoutes.map((item, index) => (
+              <div key={index} className="my-4">
+                <CustomButton
+                  key={item.id}
+                  typeStyle={'primary'}
+                  colorText={'1'}
+                  click={() => setSelectedRoute(item)}
+                  text={item.name}
+                />
+              </div>
             ))}
           </ul>
-        </div>
-
-        {selectedRoute && (
-          <div className="mb-4">
-            <h2 className="text-lg font-bold">
-              Детали маршрута: {selectedRoute.name}
-            </h2>
-
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Места на карте
-              </label>
-              <YMaps>
-                <Map
-                  defaultState={{
-                    center: [
-                      selectedRoute.places[0].lat,
-                      selectedRoute.places[0].lng,
-                    ],
-                    zoom: 10,
-                  }}
-                  width="100%"
-                  height="400px"
-                >
-                  {selectedRoute.places.map((place, index) => (
-                    <Placemark
-                      key={index}
-                      geometry={[place.lat, place.lng]}
-                      properties={{
-                        hintContent: place.name,
-                        balloonContent: place.name,
-                      }}
-                      options={{
-                        preset: 'islands#blueCircleIcon',
-                      }}
-                    />
-                  ))}
-                </Map>
-              </YMaps>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="text-lg font-bold">Список мест</h3>
-              <ul>
+          {selectedRoute && (
+            <div>
+              <div className="block-container">
+                <h2 className="text-lg font-bold">
+                  Детали маршрута: {selectedRoute.name}
+                </h2>
+                <YMaps>
+                  <Map
+                    defaultState={{
+                      center: [
+                        selectedRoute.places[0].lat,
+                        selectedRoute.places[0].lng,
+                      ],
+                      zoom: 10,
+                    }}
+                    width=""
+                    height="400px"
+                  >
+                    {selectedRoute.places.map((place, index) => (
+                      <Placemark
+                        key={index}
+                        geometry={[place.lat, place.lng]}
+                        properties={{
+                          hintContent: place.name,
+                          balloonContent: place.name,
+                        }}
+                        options={{
+                          preset: 'islands#blueCircleIcon',
+                        }}
+                      />
+                    ))}
+                  </Map>
+                </YMaps>
+              </div>
+              <Divider />
+              <div className="block-container">
+                <h3 className="text-lg font-bold mb-1">Список мест</h3>
                 {selectedRoute.places.map((place, index) => (
                   <li key={index} className="mb-2">
-                    {place.name} (Широта: {place.lat}, Долгота: {place.lng})
+                    {place.name}
                   </li>
                 ))}
-              </ul>
+              </div>
+              <Divider />
+              <div className="block-container">
+                <h3 className="text-lg font-bold mb-1">Заметки</h3>
+                <p>{selectedRoute.note}</p>
+              </div>
+              <Divider />
+              <div className="block-container">
+                <h3 className="text-lg font-bold mb-1">Бюджет поездки</h3>
+                <li>Транспорт: {selectedRoute.budget.transport} рублей</li>
+                <li>Жилье: {selectedRoute.budget.accommodation} рублей</li>
+                <li>Питание: {selectedRoute.budget.food} рублей</li>
+                <p className="font-bold mt-1">
+                  Общий бюджет: {calculateTotalBudget(selectedRoute.budget)}{' '}
+                  рублей
+                </p>
+              </div>
             </div>
-
-            <div className="mb-4">
-              <h3 className="text-lg font-bold">Заметки</h3>
-              <p>{selectedRoute.note}</p>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="text-lg font-bold">Бюджет поездки</h3>
-              <p>Транспорт: {selectedRoute.budget.transport} рублей</p>
-              <p>Жилье: {selectedRoute.budget.accommodation} рублей</p>
-              <p>Питание: {selectedRoute.budget.food} рублей</p>
-              <p className="font-bold">
-                Общий бюджет: {calculateTotalBudget(selectedRoute.budget)}{' '}
-                рублей
-              </p>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

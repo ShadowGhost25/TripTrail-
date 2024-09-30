@@ -42,7 +42,7 @@ const NavFooter = () => {
     },
   ]
   return (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:col-span-2 lg:grid-cols-3">
       {arr.map((item, index) => (
         <nav key={index}>
           <p className="text-lg font-medium text-gray-900  dark:text-gray-200">
@@ -56,7 +56,7 @@ const NavFooter = () => {
                   className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
                   to={subItem.to}
                 >
-                  {subItem.d ? (
+                  {subItem.d && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="size-5 shrink-0 text-gray-900 dark:text-gray-200"
@@ -71,8 +71,6 @@ const NavFooter = () => {
                         d={subItem.d}
                       />
                     </svg>
-                  ) : (
-                    ''
                   )}
 
                   <span className="flex-1 text-gray-700 hover:opacity-75 dark:text-gray-400">

@@ -39,8 +39,8 @@ const CreateRoute = () => {
   }
   const arrInput = [
     {
-      id: 'T  ransport',
-      text: 'Название маршрута',
+      id: 'Transport',
+      text: 'Транспорт',
       value: budget.transport,
       onChange: (e) =>
         setBudget({
@@ -69,7 +69,7 @@ const CreateRoute = () => {
   return (
     <>
       <Header />
-      <main className="mx-auto my-4 px-4 max-w-custom-xl items-center gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 sm:px-6 lg:px-8 xl:px-0">
+      <main className="main-container">
         <h1 className="text-2xl font-bold mb-4">Создать маршрут</h1>
         <article className="mb-4">
           <CustomInput
@@ -154,7 +154,7 @@ const CreateRoute = () => {
                   htmlFor={item.id}
                   className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
                 >
-                  <span className="text-base font-medium text-gray-700 dark:text-gray-200">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
                     {item.text}
                   </span>
 

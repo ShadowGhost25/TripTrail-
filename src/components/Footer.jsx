@@ -26,45 +26,43 @@ const Footer = () => {
     },
   ]
   return (
-    <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-7 sm:px-6 lg:space-y-16 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <section>
-            <Logo />
-            <p className="mt-4 max-w-xs text-gray-500 dark:text-gray-400">
-              Отправляйся туда, куда мечтаешь, <br />c нашим планировщиком под
-              рукой.
-            </p>
-            <ul className="mt-8 flex gap-6">
-              {arr.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    to="#"
-                    rel="noreferrer"
-                    target="_blank"
-                    className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                  >
-                    <span className="sr-only">{item.title}</span>
+    <footer className=" mx-auto w-full max-w-screen-xl space-y-8 px-4 py-7 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <section>
+          <Logo />
+          <p className="mt-4 max-w-xs text-gray-500 dark:text-white">
+            Отправляйся туда, куда мечтаешь, <br />c нашим планировщиком под
+            рукой.
+          </p>
+          <ul className="mt-8 flex gap-6">
+            {arr.map((item, index) => (
+              <li key={index}>
+                <Link
+                  to="#"
+                  rel="noreferrer"
+                  target="_blank"
+                  className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                >
+                  <span className="sr-only">{item.title}</span>
 
-                    <svg
-                      className="size-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path fillRule="evenodd" d={item.d} clipRule="evenodd" />
-                    </svg>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-          <NavFooter />
-        </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400">
-          &copy; 2024. TripTrail. Все права защищены.
-        </p>
+                  <svg
+                    className="size-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path fillRule="evenodd" d={item.d} clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <NavFooter />
       </div>
+      <p className="text-xs m-0 text-black dark:text-white">
+        &copy; 2024. TripTrail. Все права защищены.
+      </p>
     </footer>
   )
 }

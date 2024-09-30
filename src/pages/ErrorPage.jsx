@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const ErrorPage = () => {
   return (
-    <div className="grid h-screen place-content-center bg-white px-4 dark:bg-gray-900">
+    <main className="grid h-screen place-content-center bg-white px-4 dark:bg-gray-900">
       <div className="text-center">
         <h1 className="text-9xl font-black text-gray-400 dark:text-gray-700">
           404
@@ -23,7 +23,7 @@ const ErrorPage = () => {
           Вернуться на главную
         </Link>
       </div>
-    </div>
+    </main>
   )
 }
 

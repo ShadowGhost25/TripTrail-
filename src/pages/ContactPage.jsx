@@ -6,10 +6,10 @@ const ContactPage = () => {
   return (
     <>
       <Header />
-      <main className="mx-auto my-4 px-4 max-w-custom-xl items-center gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 sm:px-6 lg:px-8 xl:px-0">
+      <main className="main-container">
         <section aria-labelledby="contact-info" className="mb-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 ">
-            <div className="bg-gray-200  rounded-lg p-6 dark:bg-gray-800 sm:p-6">
+            <div className="block-container">
               <h1 className="text-3xl font-bold mb-6">Контакты</h1>
               <h2 id="contact-info" className="text-xl font-semibold mb-4">
                 Как с нами связаться
@@ -38,10 +38,7 @@ const ContactPage = () => {
                 </p>
               </address>
             </div>
-            <section
-              className="bg-gray-200  rounded-lg p-6 dark:bg-gray-800 sm:p-6"
-              aria-labelledby="contact-form"
-            >
+            <section className="block-container" aria-labelledby="contact-form">
               <h2 id="contact-form" className="text-xl font-semibold mb-6">
                 Отправить сообщение
               </h2>

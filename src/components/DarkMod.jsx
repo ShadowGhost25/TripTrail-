@@ -1,6 +1,5 @@
 const DarkMod = () => {
   const color = 'white'
-  //   const [active, setActive] = useState(false)
   const handleToggle = (type) => {
     if (type === 'dark') {
       document.getElementsByTagName('html')[0].classList.add('dark')

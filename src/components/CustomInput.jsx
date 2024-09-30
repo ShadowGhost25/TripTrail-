@@ -20,7 +20,7 @@ const CustomInput = ({
       {type === 'textarea' ? (
         <textarea
           id={id}
-          className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+          className="mt-1 w-full h-[100px] border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
