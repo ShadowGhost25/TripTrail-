@@ -8,7 +8,7 @@ const DarkMod = () => {
     }
   }
   return (
-    <div className="mt-2">
+    <div className="mt-2 flex justify-between w-[85px]">
       <span
         onClick={() => handleToggle('light')}
         className="inline-flex rounded-full transition border bg-teal-700 border-teal-700 px-2.5 py-1 text-teal-700 dark:text-teal-100 dark:bg-transparent"

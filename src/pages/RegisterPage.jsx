@@ -48,7 +48,7 @@ const RegisterPage = () => {
     },
   ]
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="dark:bg-gray-900">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <img
@@ -59,10 +59,10 @@ const RegisterPage = () => {
         </aside>
 
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-          <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-900">
+          <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-800">
             <Logo />
             <DarkMod />
-            <h1 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl dark:text-white">
+            <h1 className="mt-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
               Добро пожаловать!
             </h1>
 
@@ -93,7 +93,7 @@ const RegisterPage = () => {
                     className="size-5 rounded-md  "
                   />
 
-                  <span className="text-sm text-gray-700 dark:text-gray-200">
+                  <span className="text-base text-gray-700 dark:text-gray-200">
                     Я хочу получать электронные письма о мероприятиях,
                     обновлениях продуктов и объявлениях компании.
                   </span>
@@ -101,13 +101,13 @@ const RegisterPage = () => {
               </div>
 
               <div className="col-span-6">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Создавая учетную запись, вы соглашаетесь с нашимей
+                <p className="text-base text-gray-500 dark:text-gray-400">
+                  Создавая учетную запись, вы соглашаетесь с нашимей &nbsp;
                   <Link
                     to="/privacypolicy"
                     className="text-gray-700 underline dark:text-gray-200"
                   >
-                    &nbsp; политикой конфиденциальности.
+                    политикой конфиденциальности.
                   </Link>
                 </p>
               </div>

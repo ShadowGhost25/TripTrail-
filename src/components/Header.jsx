@@ -36,7 +36,7 @@ function Header() {
             aria-label="Global"
             className=" size-full hidden lg:flex justify-center"
           >
-            <ul className="flex px-4 items-center gap-4 sm:text-sm">
+            <ul className="flex px-4 items-center gap-3 sm:text-sm">
               {navArr.map((item, index) => (
                 <CustomButton
                   key={index}

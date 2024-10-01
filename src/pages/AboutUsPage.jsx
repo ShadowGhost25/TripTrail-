@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Card from '../components/Card'
 import Divider from '../components/Divider'
 import Footer from '../components/Footer'
@@ -22,10 +23,8 @@ const AboutUs = () => {
     <div className="div-container">
       <Header />
       <main className="main-container">
+        <h1 className="title-style">О нас</h1>
         <section className="block-container">
-          <header>
-            <h2 className="text-2xl font-semibold">О нас</h2>
-          </header>
           <p className="my-4 text-base leading-7">
             Мы - команда профессионалов, посвятивших себя созданию уникального
             приложения для планирования путешествий. Наша цель - сделать ваши
@@ -35,9 +34,7 @@ const AboutUs = () => {
         </section>
         <Divider />
         <section className="block-container">
-          <header>
-            <h2 className="text-2xl font-semibold">Наши ценности</h2>
-          </header>
+          <h2 className="subtitle-style">Наши ценности</h2>
           <ul className="mt-4 space-y-4 list-disc list-inside">
             {arr.map((item, index) => (
               <li key={index}>
@@ -50,16 +47,16 @@ const AboutUs = () => {
         <Card />
         <Divider />
         <section className="block-container">
-          <header>
-            <h2 className="text-2xl font-semibold">Свяжитесь с нами</h2>
-          </header>
+          <h2 className="subtitle-style">Свяжитесь с нами</h2>
           <p className="mt-4">
             Мы всегда рады вашим отзывам и предложениям. Свяжитесь с нами по
-            следующему адресу:
+            следующему адресу:&nbsp;
+            <address className="inline">
+              <Link to={'mailto:test@triptrail.com'} className="email-style">
+                test@triptrail.com
+              </Link>
+            </address>
           </p>
-          <address className="mt-2 text-teal-600 dark:text-teal-400">
-            test@triptrail.com
-          </address>
         </section>
       </main>
       <Footer />

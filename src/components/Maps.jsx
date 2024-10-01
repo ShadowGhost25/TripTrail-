@@ -21,7 +21,7 @@ const Maps = () => {
     }
   }, [])
 
-  return <div id="map" style={{ width: '100vw', height: '400px' }}></div>
+  return <div id="map" style={{ width: '100%', height: '400px' }}></div>
 }
 
 export default Maps

@@ -28,7 +28,7 @@ const CustomButton = ({
   const buttonStyles = (type) => {
     switch (type) {
       case 'primary':
-        return 'inline-block w-full rounded-md border border-teal-600 bg-teal-600 px-4 py-2.5 text-sm font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:hover:text-white dark:hover:bg-transparent sm:px-8 sm:py-2.5'
+        return 'inline-block w-full rounded-md border border-teal-600 bg-teal-600 px-4 py-2.5 text-sm font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500 dark:hover:text-white dark:hover:bg-transparent sm:px-8 sm:py-2.5'
       case 'normal':
         return 'inline-block w-full rounded-md bg-gray-200 px-8 py-3 text-sm  font-medium text-teal-700 transition border border-gray-100 hover:text-teal-600/75 hover:bg-transparent hover:border-teal-600 sm:block dark:border dark:border-gray-600 dark:bg-gray-600 dark:text-white dark:hover:bg-transparent dark:hover:border dark:hover:border-teal-600 sm:px-8 sm:py-2.5'
       case 'burgermenu':
@@ -42,7 +42,7 @@ const CustomButton = ({
   const buttonColorText = (type) => {
     switch (type) {
       case '1':
-        return ' text-white hover:text-teal-600 active:text-teal-500'
+        return ' text-white hover:text-teal-800 active:text-teal-500'
       case '2':
         return ' text-white hover:text-white active:text-white'
       case '3':

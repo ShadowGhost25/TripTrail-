@@ -40,7 +40,6 @@ const CustomInput = ({
 CustomInput.propTypes = {
   htmlFor: PropTypes.string,
   text: PropTypes.string,
-  index: PropTypes.number,
   type: PropTypes.string,
   value: PropTypes.string,
   id: PropTypes.string,

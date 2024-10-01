@@ -45,16 +45,13 @@ const ViewRoutes = () => {
     <div className="div-container">
       <Header />
       <main className="main-container">
-        <div className="block-container">
-          <h1 className="text-2xl font-bold mb-4">Просмотреть маршруты</h1>
-          <CustomButton
-            index={3}
-            typeStyle={'burgermenu'}
-            click={toggleMenu}
-            svg={true}
-            text={'Список маршрутов'}
-          />
-        </div>
+        <h1 className="title-style">Просмотреть маршруты</h1>
+        <CustomButton
+          typeStyle={'burgermenu'}
+          click={toggleMenu}
+          svg={true}
+          text={'Список маршрутов'}
+        />
         <div className={`${isMenuOpen ? 'block' : 'hidden'}`}>
           <ul>
             {exampleRoutes.map((item, index) => (
@@ -70,9 +67,9 @@ const ViewRoutes = () => {
             ))}
           </ul>
           {selectedRoute && (
-            <div>
+            <>
               <div className="block-container">
-                <h2 className="text-lg font-bold">
+                <h2 className="subtitle-style">
                   Детали маршрута: {selectedRoute.name}
                 </h2>
                 <YMaps>
@@ -82,7 +79,7 @@ const ViewRoutes = () => {
                         selectedRoute.places[0].lat,
                         selectedRoute.places[0].lng,
                       ],
-                      zoom: 10,
+                      zoom: 12,
                     }}
                     width=""
                     height="400px"
@@ -105,7 +102,7 @@ const ViewRoutes = () => {
               </div>
               <Divider />
               <div className="block-container">
-                <h3 className="text-lg font-bold mb-1">Список мест</h3>
+                <h2 className="text-lg font-bold mb-1">Список мест</h2>
                 {selectedRoute.places.map((place, index) => (
                   <li key={index} className="mb-2">
                     {place.name}
@@ -114,21 +111,21 @@ const ViewRoutes = () => {
               </div>
               <Divider />
               <div className="block-container">
-                <h3 className="text-lg font-bold mb-1">Заметки</h3>
+                <h2 className="text-lg font-bold mb-1">Заметки</h2>
                 <p>{selectedRoute.note}</p>
               </div>
               <Divider />
               <div className="block-container">
-                <h3 className="text-lg font-bold mb-1">Бюджет поездки</h3>
+                <h2 className="text-lg font-bold mb-1">Бюджет поездки</h2>
                 <li>Транспорт: {selectedRoute.budget.transport} рублей</li>
                 <li>Жилье: {selectedRoute.budget.accommodation} рублей</li>
                 <li>Питание: {selectedRoute.budget.food} рублей</li>
                 <p className="font-bold mt-1">
-                  Общий бюджет: {calculateTotalBudget(selectedRoute.budget)}{' '}
-                  рублей
+                  Общий бюджет: {calculateTotalBudget(selectedRoute.budget)}
+                  &nbsp;рублей
                 </p>
               </div>
-            </div>
+            </>
           )}
         </div>
       </main>

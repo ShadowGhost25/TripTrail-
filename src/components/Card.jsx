@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 const Card = () => {
   return (
     <section className="my-4">
-      <header>
-        <h2 className="text-2xl font-semibold sm:px-6">Наша команда</h2>
-      </header>
+      <h2 className="sm:px-6 subtitle-style">Наша команда</h2>
       <div className="mt-4 flex justify-center gap-8 md:grid-cols-2 lg:grid-cols-3">
         <article className="rounded-lg border border-gray-200 bg-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center gap-4">
@@ -52,7 +50,7 @@ const Card = () => {
                 <strong className="text-gray-900 dark:text-gray-100">
                   TripTrail
                 </strong>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm dark:text-gray-400">
                   Илья — главный по проекту и ведущий разработчик приложения для
                   планирования путешествий. Он отвечает за архитектуру
                   приложения, его техническую реализацию и управление командой.

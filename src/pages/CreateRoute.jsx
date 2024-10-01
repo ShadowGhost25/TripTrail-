@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import CustomButton from '../components/CustomButton'
 import CustomInput from '../components/CustomInput'
+import Divider from '../components/Divider'
 
 const CreateRoute = () => {
   const [places, setPlaces] = useState([])
@@ -70,8 +71,8 @@ const CreateRoute = () => {
     <>
       <Header />
       <main className="main-container">
-        <h1 className="text-2xl font-bold mb-4">Создать маршрут</h1>
-        <article className="mb-4">
+        <h1 className="title-style">Создать маршрут</h1>
+        <article className="block-container">
           <CustomInput
             htmlFor="Nameroute"
             text="Название маршрута"
@@ -80,8 +81,8 @@ const CreateRoute = () => {
             placeholder="Введите название маршрута"
           />
         </article>
-
-        <article className="mb-4">
+        <Divider />
+        <article className="block-container">
           <label className="block text-lg font-bold mb-4">Добавить места</label>
           <YMaps>
             <Map
@@ -106,9 +107,9 @@ const CreateRoute = () => {
             </Map>
           </YMaps>
         </article>
-
-        <article className="mb-4">
-          <h2 className="text-lg font-bold">Список мест</h2>
+        <Divider />
+        <article className="block-container">
+          <h2 className="subtitle-style">Список мест</h2>
           <ul>
             {places.map((place, index) => (
               <li
@@ -116,25 +117,27 @@ const CreateRoute = () => {
                 className={`mb-2 cursor-pointer ${
                   selectedPlace === place ? 'font-bold text-teal-500' : ''
                 }`}
-                onClick={() => handlePlaceClick(place)} // При клике на место в списке оно выделяется
+                onClick={() => handlePlaceClick(place)}
               >
                 {place.name} (Широта: {place.lat}, Долгота: {place.lng})
               </li>
             ))}
           </ul>
         </article>
-
+        <Divider />
         {selectedPlace && (
-          <div className="mb-4">
-            <h2 className="text-lg font-bold">Информация о выбранном месте</h2>
-            <p>Название: {selectedPlace.name}</p>
-            <p>
-              Координаты: {selectedPlace.lat}, {selectedPlace.lng}
-            </p>
-          </div>
+          <>
+            <div className="block-container">
+              <h2 className="subtitle-style">Информация о выбранном месте</h2>
+              <p>Название: {selectedPlace.name}</p>
+              <p>
+                Координаты: {selectedPlace.lat}, {selectedPlace.lng}
+              </p>
+            </div>
+            <Divider />
+          </>
         )}
-
-        <article className="mb-4">
+        <article className="block-container">
           <CustomInput
             text="Заметки"
             id="Notes"
@@ -144,9 +147,9 @@ const CreateRoute = () => {
             type="textarea"
           />
         </article>
-
-        <section className="mb-4">
-          <h2 className="text-lg font-bold ">Оценка бюджета</h2>
+        <Divider />
+        <section className="block-container">
+          <h2 className="subtitle-style">Оценка бюджета</h2>
           <div className="grid grid-cols-3 gap-4">
             {arrInput.map((item, index) => (
               <article key={index}>
@@ -170,10 +173,10 @@ const CreateRoute = () => {
             ))}
           </div>
           <article className="mt-2">
-            <p>Общий бюджет: {calculateBudget()} рублей</p>
+            <h3>Общий бюджет: {calculateBudget()} рублей</h3>
           </article>
         </section>
-        <div className="md:w-[400px]">
+        <div className="mt-4 md:w-[400px]">
           <CustomButton
             index={1}
             text={'Сохранить маршрут'}

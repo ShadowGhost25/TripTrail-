@@ -32,10 +32,10 @@ const AuthPage = () => {
           />
         </aside>
         <main className="flex items-center justify-center px-6 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-          <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-900">
+          <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-800">
             <Logo />
             <DarkMod />
-            <h1 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl dark:text-white">
+            <h1 className="mt-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
               Авторизация
             </h1>
 
@@ -56,7 +56,7 @@ const AuthPage = () => {
                 </div>
               ))}
 
-              <p className="col-span-6 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
+              <p className="col-span-6 text-base text-gray-500 sm:mt-0 dark:text-gray-400">
                 <Link
                   to="/register"
                   className="text-gray-700 underline dark:text-gray-200"
@@ -75,7 +75,7 @@ const AuthPage = () => {
                   />
                 </div>
 
-                <p className="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
+                <p className="mt-4 text-base text-gray-500 sm:mt-0 dark:text-gray-400">
                   У вас нет аккаунта? &nbsp;
                   <Link
                     to="/register"

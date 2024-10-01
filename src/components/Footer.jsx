@@ -26,7 +26,7 @@ const Footer = () => {
     },
   ]
   return (
-    <footer className=" mx-auto w-full max-w-screen-xl space-y-8 px-4 py-7 sm:px-6 lg:px-8">
+    <footer className=" mx-auto w-full max-w-screen-xl px-4 py-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <section>
           <Logo />
@@ -60,7 +60,7 @@ const Footer = () => {
         </section>
         <NavFooter />
       </div>
-      <p className="text-xs m-0 text-black dark:text-white">
+      <p className="text-sm m-0 text-black pt-8 dark:text-white">
         &copy; 2024. TripTrail. Все права защищены.
       </p>
     </footer>

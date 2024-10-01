@@ -36,15 +36,14 @@ const FaqcPage = () => {
     <div className="div-container">
       <Header />
       <main className="main-container">
+        <h1 className="title-style">FAQ</h1>
         {faqArr.map((item, index) => (
           <details
             key={index}
             className="group border-s-4 border-teal-500 bg-gray-200 px-6 py-6 mb-4 dark:bg-gray-800 [&_summary::-webkit-details-marker]:hidden"
           >
             <summary className="flex cursor-pointer items-center justify-between gap-1.5">
-              <h2 className="text-lg font-medium text-gray-900 dark:text-white">
-                {item.title}
-              </h2>
+              <h2 className="subtitle-style">{item.title}</h2>
 
               <span className="shrink-0 rounded-full bg-white p-1.5 text-gray-900 sm:p-3 dark:bg-gray-900 dark:text-white">
                 <svg
