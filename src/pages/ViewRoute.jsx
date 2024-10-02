@@ -102,7 +102,7 @@ const ViewRoutes = () => {
               </div>
               <Divider />
               <div className="block-container">
-                <h2 className="text-lg font-bold mb-1">Список мест</h2>
+                <h2 className="subtitle-style">Список мест</h2>
                 {selectedRoute.places.map((place, index) => (
                   <li key={index} className="mb-2">
                     {place.name}
@@ -111,16 +111,16 @@ const ViewRoutes = () => {
               </div>
               <Divider />
               <div className="block-container">
-                <h2 className="text-lg font-bold mb-1">Заметки</h2>
+                <h2 className="subtitle-style">Заметки</h2>
                 <p>{selectedRoute.note}</p>
               </div>
               <Divider />
               <div className="block-container">
-                <h2 className="text-lg font-bold mb-1">Бюджет поездки</h2>
+                <h2 className="subtitle-style">Бюджет поездки</h2>
                 <li>Транспорт: {selectedRoute.budget.transport} рублей</li>
                 <li>Жилье: {selectedRoute.budget.accommodation} рублей</li>
                 <li>Питание: {selectedRoute.budget.food} рублей</li>
-                <p className="font-bold mt-1">
+                <p className="font-bold mt-4">
                   Общий бюджет: {calculateTotalBudget(selectedRoute.budget)}
                   &nbsp;рублей
                 </p>

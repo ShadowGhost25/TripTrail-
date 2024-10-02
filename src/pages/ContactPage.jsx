@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import Maps from '../components/Maps'
 import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton'
+import { GeolocationControl, Map } from '@pbe/react-yandex-maps'
 const ContactPage = () => {
   const arrInputs = [
     {
@@ -91,7 +91,15 @@ const ContactPage = () => {
           <h2 id="map" className="subtitle-style">
             Как нас найти
           </h2>
-          <Maps />
+          <Map
+            className="w-full h-[400px]"
+            defaultState={{
+              center: [55.751574, 37.573856], // Центр карты
+              zoom: 19, // Начальный зум
+            }}
+          >
+            <GeolocationControl />
+          </Map>
         </section>
       </main>
       <Footer />

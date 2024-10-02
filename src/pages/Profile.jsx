@@ -1,107 +1,139 @@
 import { useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import CustomInput from '../components/CustomInput'
+import CustomButton from '../components/CustomButton'
+import { Link } from 'react-router-dom'
+import Divider from '../components/Divider'
 
 const Profile = () => {
-  // Данные пользователя (в реальном приложении данные берутся из базы данных или API)
+  const [isEditing, setIsEditing] = useState(false)
   const [user, setUser] = useState({
-    name: 'Иван Иванов',
-    email: 'ivan@example.com',
+    firstName: 'Илья',
+    lastName: 'Вавилин',
+    email: 'test@test.com',
     createdRoutes: [
       { id: 1, name: 'Маршрут по Москве' },
       { id: 2, name: 'Тур по Санкт-Петербургу' },
     ],
   })
-
-  const [isEditing, setIsEditing] = useState(false)
-  const [newName, setNewName] = useState(user.name)
+  const [newFirstName, setFirstName] = useState(user.firstName)
+  const [newLastName, setLastName] = useState(user.lastName)
   const [newEmail, setNewEmail] = useState(user.email)
-
-  // Обработчик изменения полей
+  const arrForm = [
+    {
+      htmlFor: 'FirstName',
+      text: 'Имя',
+      type: 'text',
+      id: 'FirstName',
+      placeholder: 'Редактировать Имя',
+      value: newFirstName,
+      onChange: (e) => setFirstName(e.target.value),
+    },
+    {
+      htmlFor: 'LastName',
+      text: 'Фамилия',
+      type: 'text',
+      id: 'LastName',
+      placeholder: 'Редактировать Фамилию',
+      value: newLastName,
+      onChange: (e) => setLastName(e.target.value),
+    },
+    {
+      htmlFor: 'Email',
+      text: 'Email',
+      type: 'email',
+      id: 'Email',
+      placeholder: 'Редактировать email',
+      value: newEmail,
+      onChange: (e) => setNewEmail(e.target.value),
+    },
+  ]
   const handleSaveProfile = () => {
     setUser({
       ...user,
-      name: newName,
+      fistName: newFirstName,
+      lastName: newLastName,
       email: newEmail,
     })
     setIsEditing(false)
   }
 
   return (
-    <>
+    <div className="div-container">
       <Header />
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Профиль</h1>
+      <main className="main-container">
+        <h1 className="title-style">Профиль</h1>
 
         <div className="mb-4">
-          <h2 className="text-lg font-bold">Информация пользователя</h2>
-
           {isEditing ? (
-            <div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Имя
-                </label>
-                <input
-                  type="text"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  placeholder="Введите имя"
-                  className="border p-2 w-full"
-                />
+            <div className="block-container">
+              <h2 className="subtitle-style">Редактирование пользователя</h2>
+              {arrForm.map((item, index) => (
+                <div key={index} className="mb-4">
+                  <CustomInput
+                    htmlFor={item.htmlFor}
+                    text={item.text}
+                    type={item.type}
+                    id={item.id}
+                    newValue={item.value}
+                    placeholder={item.placeholder}
+                    onChange={item.onChange}
+                  />
+                </div>
+              ))}
+              <div className="w-[280px] flex justify-between">
+                <div className="mb-4">
+                  <CustomButton
+                    click={handleSaveProfile}
+                    text="Сохранить"
+                    typeStyle="primary"
+                    colorText="1"
+                  />
+                </div>
+                <div>
+                  <CustomButton
+                    click={() => setIsEditing(false)}
+                    text="Отмена"
+                    typeStyle="cancellation"
+                    colorText={'4'}
+                  />
+                </div>
               </div>
-
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
-                  placeholder="Введите email"
-                  className="border p-2 w-full"
-                />
-              </div>
-
-              <button
-                onClick={handleSaveProfile}
-                className="bg-green-500 text-white px-4 py-2 rounded mr-2"
-              >
-                Сохранить
-              </button>
-              <button
-                onClick={() => setIsEditing(false)}
-                className="bg-red-500 text-white px-4 py-2 rounded"
-              >
-                Отмена
-              </button>
             </div>
           ) : (
-            <div>
+            <div className="block-container">
+              <h2 className="subtitle-style">Информация пользователя</h2>
               <p>
-                <strong>Имя: </strong> {user.name}
+                <strong>Имя: </strong> {user.firstName}
+              </p>
+              <p>
+                <strong>Фамилия: </strong> {user.lastName}
               </p>
               <p>
                 <strong>Email: </strong> {user.email}
               </p>
-              <button
-                onClick={() => setIsEditing(true)}
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-              >
-                Редактировать профиль
-              </button>
+              <div className=" mt-4 w-[250px]">
+                <CustomButton
+                  click={() => setIsEditing(true)}
+                  text={'Редактировать профиль'}
+                  typeStyle={'primary'}
+                  colorText={'1'}
+                />
+              </div>
             </div>
           )}
         </div>
-
-        <div className="mb-4">
-          <h2 className="text-lg font-bold">Мои маршруты</h2>
+        <Divider />
+        <div className="block-container">
+          <h2 className="subtitle-style">Мои маршруты</h2>
           {user.createdRoutes.length > 0 ? (
             <ul>
               {user.createdRoutes.map((route) => (
                 <li key={route.id} className="mb-2">
-                  <span className="text-blue-500 font-bold">{route.name}</span>
+                  <Link to={'/viewroute'} className="text-teal-600 font-bold">
+                    {route.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -109,9 +141,9 @@ const Profile = () => {
             <p>Вы ещё не создали маршрутов.</p>
           )}
         </div>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

@@ -10,13 +10,13 @@
 }
 
 .block-container {
-    @apply bg-gray-200 rounded-lg p-6  dark:bg-gray-800 sm:p-6
+    @apply bg-gray-200 rounded-lg p-6 shadow-[0_0px_10px_5px_rgba(0,0,0,0.2)] sm:p-6 dark:bg-gray-800 dark:shadow-[0_0px_10px_5px_rgba(255,255,255,0.2)]
 }
 .title-style{
-  @apply border-2 rounded-lg p-3 font-bold mb-4 text-center text-2xl md:text-3xl dark:border-gray-700 
+  @apply border-2 rounded-lg font-bold mb-4 text-center text-xl p-1 md:p-3 md:text-xl dark:border-gray-700 
 }
 .subtitle-style{
-  @apply text-xl font-semibold mb-4
+  @apply text-xl font-semibold mb-4 border-b border-b-teal-600 inline-block
 }
 .email-style{
   @apply text-teal-600 dark:text-teal-400

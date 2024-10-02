@@ -28,13 +28,15 @@ const CustomButton = ({
   const buttonStyles = (type) => {
     switch (type) {
       case 'primary':
-        return 'inline-block w-full rounded-md border border-teal-600 bg-teal-600 px-4 py-2.5 text-sm font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500 dark:hover:text-white dark:hover:bg-transparent sm:px-8 sm:py-2.5'
+        return 'inline-block w-full rounded-md border border-teal-600 bg-teal-600 px-4 py-2.5 text-sm font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:hover:bg-transparent sm:px-8 sm:py-2.5'
       case 'normal':
         return 'inline-block w-full rounded-md bg-gray-200 px-8 py-3 text-sm  font-medium text-teal-700 transition border border-gray-100 hover:text-teal-600/75 hover:bg-transparent hover:border-teal-600 sm:block dark:border dark:border-gray-600 dark:bg-gray-600 dark:text-white dark:hover:bg-transparent dark:hover:border dark:hover:border-teal-600 sm:px-8 sm:py-2.5'
       case 'burgermenu':
         return 'flex items-center  rounded bg-teal-600 text-white dark:bg-transparent dark:border dark:border-gray-600 dark:hover:border-teal-600'
       case 'navbar':
         return 'inline-block w-[145px] h-[42px] text-sm rounded-md leading-[1rem] border text-gray-700 px-3 font-medium transition hover:border-teal-600  hover:bg-gray-200 hover:text-gray-800 hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500  dark:text-white dark:hover:text-white dark:hover:bg-transparent'
+      case 'cancellation':
+        return 'inline-block w-full rounded-md border border-red-600 bg-red-600 px-4 py-2.5 text-sm font-medium transition hover:bg-transparent focus:outline-none focus:ring-2 active:text-teal-500 dark:hover:bg-transparent sm:px-8 sm:py-2.5'
       default:
         return ''
     }
@@ -42,11 +44,13 @@ const CustomButton = ({
   const buttonColorText = (type) => {
     switch (type) {
       case '1':
-        return ' text-white hover:text-teal-800 active:text-teal-500'
+        return ' text-white hover:text-teal-800 active:text-teal-500 dark:hover:text-white'
       case '2':
         return ' text-white hover:text-white active:text-white'
       case '3':
         return ' text-teal-600 hover:text-white active:text-white'
+      case '4':
+        return ' text-white hover:text-red-600 active:text-red-500 dark:hover:text-white'
       default:
         return ''
     }

@@ -6,7 +6,7 @@ const CustomInput = ({
   type,
   id,
   placeholder,
-  value,
+  newValue,
   onChange,
 }) => {
   return (
@@ -21,8 +21,8 @@ const CustomInput = ({
         <textarea
           id={id}
           className="mt-1 w-full h-[100px] border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={newValue}
+          onChange={onChange}
           placeholder={placeholder}
         />
       ) : (
@@ -30,6 +30,8 @@ const CustomInput = ({
           type={type}
           id={id}
           placeholder={placeholder}
+          value={newValue}
+          onChange={onChange}
           className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
         />
       )}
@@ -41,7 +43,7 @@ CustomInput.propTypes = {
   htmlFor: PropTypes.string,
   text: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string,
+  newValue: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
