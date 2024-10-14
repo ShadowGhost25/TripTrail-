@@ -59,7 +59,7 @@ const RegisterPage = () => {
         </aside>
 
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-          <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-800">
+          <div className="block-container">
             <Logo />
             <DarkMod />
             <h1 className="mt-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">

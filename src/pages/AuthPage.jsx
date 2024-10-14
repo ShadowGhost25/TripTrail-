@@ -1,28 +1,77 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAuth } from '../redux/slice/authSlice'
 import CustomButton from '../components/CustomButton'
 import Logo from '../components/Logo'
 import CustomInput from '../components/CustomInput'
 import DarkMod from '../components/DarkMod'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const AuthPage = () => {
+  const dispatch = useDispatch()
+  const { error } = useSelector((state) => state.auth)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = (e) => {
+    const { id, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      // Используем unwrap для обработки результата
+      await dispatch(fetchAuth(formData)).unwrap()
+    } catch (err) {
+      console.error('Ошибка при авторизации:', err)
+    }
+  }
+
+  useEffect(() => {
+    // Уведомление об ошибке, если оно существует
+    if (error) {
+      toast.error(typeof error === 'string' ? error : 'Произошла ошибка', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [error])
+
   const arrInput = [
     {
       htmlFor: 'Email',
       text: 'Email',
       type: 'email',
-      id: 'Email',
+      id: 'email',
       placeholder: 'test@triptrail.com',
     },
     {
       htmlFor: 'Password',
       text: 'Password',
       type: 'password',
-      id: 'Password',
+      id: 'password',
       placeholder: 'test',
     },
   ]
+
   return (
     <section className="bg-white dark:bg-gray-900">
+      <ToastContainer />
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <img
@@ -32,7 +81,7 @@ const AuthPage = () => {
           />
         </aside>
         <main className="flex items-center justify-center px-6 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-          <div className="bg-gray-200 rounded-md p-6  max-w-xl lg:max-w-3xl dark:bg-gray-800">
+          <div className="block-container">
             <Logo />
             <DarkMod />
             <h1 className="mt-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
@@ -43,7 +92,10 @@ const AuthPage = () => {
               Пожалуйста, войдите в свой аккаунт.
             </p>
 
-            <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 grid grid-cols-6 gap-6"
+            >
               {arrInput.map((item, index) => (
                 <div key={index} className="col-span-6">
                   <CustomInput
@@ -52,6 +104,8 @@ const AuthPage = () => {
                     type={item.type}
                     id={item.id}
                     placeholder={item.placeholder}
+                    value={formData[item.id]}
+                    onChange={handleChange}
                   />
                 </div>
               ))}

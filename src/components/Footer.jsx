@@ -30,7 +30,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <section>
           <Logo />
-          <p className="mt-4 max-w-xs text-gray-500 dark:text-white">
+          <p className="mt-4 max-w-xs dark:text-white">
             Отправляйся туда, куда мечтаешь, <br />c нашим планировщиком под
             рукой.
           </p>
