@@ -3,7 +3,14 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton'
-import { GeolocationControl, Map } from '@pbe/react-yandex-maps'
+import {
+  FullscreenControl,
+  GeolocationControl,
+  Map,
+  Placemark,
+  ZoomControl,
+} from '@pbe/react-yandex-maps'
+
 const ContactPage = () => {
   const arrInputs = [
     {
@@ -93,12 +100,17 @@ const ContactPage = () => {
           </h2>
           <Map
             className="w-full h-[400px]"
-            defaultState={{
-              center: [55.751574, 37.573856], // Центр карты
-              zoom: 19, // Начальный зум
-            }}
+            state={{ center: [53.200722, 45.016645], zoom: 19 }}
           >
+            <Placemark
+              defaultGeometry={[53.200722, 45.016645]}
+              properties={{
+                balloonContentBody: 'CodeInside',
+              }}
+            />
             <GeolocationControl />
+            <FullscreenControl />
+            <ZoomControl />
           </Map>
         </section>
       </main>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
+import { Map, Placemark } from '@pbe/react-yandex-maps'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import CustomButton from '../components/CustomButton'
@@ -84,28 +84,26 @@ const CreateRoute = () => {
         <Divider />
         <article className="block-container">
           <label className="block text-lg font-bold mb-4">Добавить места</label>
-          <YMaps>
-            <Map
-              defaultState={{ center: [55.751244, 37.618423], zoom: 10 }} // Москва по умолчанию
-              width="100%"
-              height="400px"
-              onClick={handleMapClick}
-            >
-              {places.map((place, index) => (
-                <Placemark
-                  key={index}
-                  geometry={[place.lat, place.lng]}
-                  onClick={() => handlePlaceClick(place)} // При клике на маркер выбираем место
-                  options={{
-                    preset:
-                      selectedPlace === place
-                        ? 'islands#redIcon'
-                        : 'islands#blueIcon', // Выделяем выбранное место
-                  }}
-                />
-              ))}
-            </Map>
-          </YMaps>
+          <Map
+            defaultState={{ center: [55.751244, 37.618423], zoom: 10 }} // Москва по умолчанию
+            width="100%"
+            height="400px"
+            onClick={handleMapClick}
+          >
+            {places.map((place, index) => (
+              <Placemark
+                key={index}
+                geometry={[place.lat, place.lng]}
+                onClick={() => handlePlaceClick(place)} // При клике на маркер выбираем место
+                options={{
+                  preset:
+                    selectedPlace === place
+                      ? 'islands#redIcon'
+                      : 'islands#blueIcon', // Выделяем выбранное место
+                }}
+              />
+            ))}
+          </Map>
         </article>
         <Divider />
         <article className="block-container">

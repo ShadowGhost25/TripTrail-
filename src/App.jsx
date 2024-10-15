@@ -5,16 +5,19 @@ import { YMaps } from '@pbe/react-yandex-maps'
 
 let App = () => {
   const { pathname } = useLocation()
-  const apikey = '9ba58d76-335d-4e40-8673-0e367db75b78'
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
+  const apikeys = 'bd312af2-ea78-41b9-9d21-9f0b7babe1e3'
+
   return (
     <>
       <YMaps
         query={{
-          apikey: apikey,
+          apikey: apikeys,
+          ns: 'use-load-option',
+          load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon',
         }}
       >
         <Routes>
