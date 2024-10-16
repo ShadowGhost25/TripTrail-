@@ -1,0 +1,21 @@
+{
+ "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSaveMode": "file",
+  "files.autoSave": "onFocusChange",
+  "vs-code-prettier-eslint.prettierLast": false,
+    "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.formatOnSave": true,  // Включает автоформатирование при сохранении
+  "editor.codeActionsOnSave": {
+  "source.fixAll.eslint": "explicit"  // Применяет ESLint для исправлений при сохранении
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+}
