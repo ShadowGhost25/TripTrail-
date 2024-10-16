@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchAuth } from '../redux/slice/authSlice'
 import CustomButton from '../components/CustomButton'
 import Logo from '../components/Logo'
 import CustomInput from '../components/CustomInput'
 import DarkMod from '../components/DarkMod'
-import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const AuthPage = () => {
   const dispatch = useDispatch()
-  const { error } = useSelector((state) => state.auth)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -28,29 +27,11 @@ const AuthPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // Используем unwrap для обработки результата
       await dispatch(fetchAuth(formData)).unwrap()
     } catch (err) {
       console.error('Ошибка при авторизации:', err)
     }
   }
-
-  useEffect(() => {
-    // Уведомление об ошибке, если оно существует
-    if (error) {
-      toast.error(typeof error === 'string' ? error : 'Произошла ошибка', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [error])
 
   const arrInput = [
     {
