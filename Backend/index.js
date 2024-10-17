@@ -3,8 +3,9 @@ import mongoose from 'mongoose'
 import { loginValidation, registerValidation } from './validations/auth.js'
 import checkAuth from './utils/checkAuth.js'
 import { login, me, register } from './controllers/userControllers.js'
-import { createRoute } from './controllers/RouteController.js'
+import { createRoute, getAllRoute, removeRoute, updateRoute } from './controllers/RouteController.js'
 import { routeValidation } from './validations/route.js'
+import handleErrors from './utils/handleErrors.js'
 
 mongoose
     .connect('mongodb+srv://admin:admin@triptrail.bsxem.mongodb.net/blog?retryWrites=true&w=majority&appName=TripTrail')
@@ -17,14 +18,14 @@ app.get('/', (req, res) => {
     res.send('Hello World !')
 })
 app.get('/me', checkAuth, me)
-app.post('/route',checkAuth, createRoute )
-// app.get('/route', checkAuth, route)
-// app.get('/route/:id', checkAuth, createRouteOne )
-// app.delete('/route', checkAuth, remove)
-// app.patch('/route', checkAuth, update)
 //!
-app.post('/login', loginValidation, login)
-app.post('/register', registerValidation,register)
+app.get('/route', checkAuth, getAllRoute)
+app.post('/route', checkAuth, routeValidation, handleErrors, createRoute)
+app.delete('/route/:id', checkAuth, removeRoute)
+app.patch('/route/:id', checkAuth, routeValidation, handleErrors, updateRoute)
+//!
+app.post('/login', loginValidation, handleErrors, login)
+app.post('/register', registerValidation, handleErrors, register)
 //!
 app.listen(4444, (err) => {
     if (err) {

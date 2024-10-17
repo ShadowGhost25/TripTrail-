@@ -6,7 +6,7 @@ const routeSchema = new mongoose.Schema({
         require: true,
     },
     places: {
-        type: Number,
+        type: Array,
         require: true
     },
     notes: { 
