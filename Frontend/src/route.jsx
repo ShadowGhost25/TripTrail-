@@ -1,19 +1,21 @@
-import AboutUs from './pages/AboutUsPage'
-import ErrorPage from './pages/ErrorPage'
-import RegisterPage from './pages/RegisterPage'
-import MainPage from './pages/MainPage'
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
-import AuthPage from './pages/AuthPage'
-import FaqPage from './pages/FaqPage'
-import ContactPage from './pages/ContactPage'
-import CreateRoute from './pages/CreateRoute'
-import ViewRoutes from './pages/ViewRoute'
-import Profile from './pages/Profile'
+import { lazy } from 'react'
+
+const MainPage = lazy(() => import('./pages/MainPage'))
+const ErrorPage = lazy(() => import('./pages/ErrorPage'))
+const AboutUsPage = lazy(() => import('./pages/AboutUsPage'))
+const RegisterPage = lazy(() => import('./pages/RegisterPage'))
+const AuthPage = lazy(() => import('./pages/AuthPage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
+const FaqPage = lazy(() => import('./pages/FaqPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const CreateRoute = lazy(() => import('./pages/CreateRoute'))
+const ViewRoutes = lazy(() => import('./pages/ViewRoute'))
+const Profile = lazy(() => import('./pages/Profile'))
 
 export const route = [
   { path: '/', element: <MainPage /> },
   { path: '/error', element: <ErrorPage /> },
-  { path: '/aboutus', element: <AboutUs /> },
+  { path: '/aboutus', element: <AboutUsPage /> },
   { path: '/register', element: <RegisterPage /> },
   { path: '/auth', element: <AuthPage /> },
   { path: '/privacypolicy', element: <PrivacyPolicyPage /> },

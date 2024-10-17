@@ -21,3 +21,8 @@
 .email-style{
   @apply text-teal-600 dark:text-teal-400
 }
+@layer components {
+  .loader {
+    border-top-color: transparent;
+  }
+}
