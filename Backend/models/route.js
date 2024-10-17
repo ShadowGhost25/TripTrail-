@@ -1,29 +1,44 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const routeSchema = new mongoose.Schema({
+const placeSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  lat: { type: Number, required: true },
+  lng: { type: Number, required: true },
+})
+
+const budgetItemSchema = new mongoose.Schema({
+  transport: { type: Number, required: true },
+  accommodation: { type: Number, required: true },
+  food: { type: Number, required: true },
+})
+
+const routeSchema = new mongoose.Schema(
+  {
     title: {
-        type: String,
-        require: true,
+      type: String,
+      required: true,
     },
     places: {
-        type: Array,
-        require: true
+      type: [placeSchema],
+      required: true,
     },
-    notes: { 
-        type: String, 
-        require: true
+    notes: {
+      type: String,
+      required: false,
     },
     budget: {
-        type: Number,
-        require: true,
+      type: [budgetItemSchema],
+      required: true,
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        require: true
-    }
-},
-    {
-        timestamps: true
-    })
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+)
+
 export default mongoose.model('Route', routeSchema)

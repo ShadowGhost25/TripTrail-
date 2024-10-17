@@ -1,4 +1,3 @@
-import { validationResult } from 'express-validator'
 import routeModel from '../models/route.js'
 
 export const getAllRoute = async (req, res) => {
@@ -63,18 +62,21 @@ export const updateRoute = async (req, res) => {
 }
 
 export const createRoute = async (req, res) => {
-    try {
-        const doc = new routeModel({
-            title: req.body.title,
-            places: req.body.places,
-            notes: req.body.notes,
-            budget: req.body.budget,
-            user: req.userId
-        })
-        const route = await doc.save()
-        res.json(route)
-    } catch (err) {
-        console.log('Err маршрут => ', err)
-        res.status(500).json({ message: 'Неудалось создать маршрут' })
-    }
+  try {
+    const { title, places, notes, budget } = req.body
+
+    const doc = new routeModel({
+      title,
+      places,
+      notes,
+      budget,
+      user: req.userId,
+    })
+
+    const route = await doc.save()
+    res.json(route)
+  } catch (err) {
+    console.log('Err маршрут => ', err)
+    res.status(500).json({ message: 'Не удалось создать маршрут' })
+  }
 }
