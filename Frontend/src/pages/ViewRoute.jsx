@@ -6,30 +6,42 @@ import CustomButton from '../components/CustomButton'
 import Divider from '../components/Divider'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchRoute } from '../redux/slice/routeSlice'
+import LoadingSpinner from '../components/Loading'
+
 const ViewRoutes = () => {
   const dispatch = useDispatch()
   const { route, status } = useSelector((state) => state.route)
   const [selectedRoute, setSelectedRoute] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   useEffect(() => {
-    dispatch(fetchRoute())
-  }, [dispatch])
+    if (status === 'idle') {
+      dispatch(fetchRoute())
+    }
+  }, [dispatch, status])
+
   const calculateTotalBudget = (budget) => {
     return budget[0].transport + budget[0].accommodation + budget[0].food
   }
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+
   useEffect(() => {
     if (status === 'loaded') {
       const button = [...document.querySelectorAll('button')].find((el) =>
         el.textContent.includes('Список маршрутов'),
       )
-      button.classList.add('pr-2')
+      if (button) {
+        button.classList.add('pr-2')
+      }
     }
-  })
-
-  if (status === 'loaded') {
+  }, [status])
+  console.log(route)
+  if (status === 'loading') {
+    return <LoadingSpinner />
+  } else {
     return (
       <div className="div-container">
         <Header />
@@ -52,7 +64,6 @@ const ViewRoutes = () => {
                     click={() => setSelectedRoute(item)}
                     text={item.title}
                   />
-                  {console.log(item)}
                 </div>
               ))}
             </ul>

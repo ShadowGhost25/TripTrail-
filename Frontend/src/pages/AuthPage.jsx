@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { fetchAuth } from '../redux/slice/authSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import CustomButton from '../components/CustomButton'
 import Logo from '../components/Logo'
 import CustomInput from '../components/CustomInput'
 import DarkMod from '../components/DarkMod'
-import { ToastContainer } from 'react-toastify'
+import { useForm } from 'react-hook-form'
 import 'react-toastify/dist/ReactToastify.css'
+import { fetchAuth, selectIsAuth } from '../redux/slice/authSlice'
+import { useEffect, useState } from 'react'
+import Toast from '../components/Toast'
+import { ToastContainer } from 'react-toastify'
 
 const AuthPage = () => {
+  const [showToast, setShowToast] = useState(false)
   const dispatch = useDispatch()
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+  const isAuth = useSelector(selectIsAuth)
+  const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onChange',
   })
 
-  const handleChange = (e) => {
-    const { id, value } = e.target
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      await dispatch(fetchAuth(formData)).unwrap()
-    } catch (err) {
-      console.error('Ошибка при авторизации:', err)
+  const onSubmit = async (values) => {
+    const data = await dispatch(fetchAuth(values))
+    console.log(data)
+    if ('token' in data.payload) {
+      console.log('asd')
+      window.localStorage.setItem('token', data.payload.token)
+    } else {
+      setShowToast(true)
     }
   }
 
@@ -40,6 +46,7 @@ const AuthPage = () => {
       type: 'email',
       id: 'email',
       placeholder: 'test@triptrail.com',
+      value: { required: 'Укажите почту' },
     },
     {
       htmlFor: 'Password',
@@ -47,16 +54,27 @@ const AuthPage = () => {
       type: 'password',
       id: 'password',
       placeholder: 'test',
+      value: { required: 'Укажите пароль' },
     },
   ]
+
+  // Используем useEffect для перехода на главную страницу при аутентификации
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/')
+    }
+  }, [isAuth, navigate]) // Добавьте isAuth и navigate в зависимости
 
   return (
     <section className="bg-white dark:bg-gray-900">
       <ToastContainer />
+      {showToast && (
+        <Toast message="Ошибка авторизации. Пожалуйста, проверьте свои данные." />
+      )}
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <img
-            alt="turism"
+            alt="tourism"
             src="https://images.wallpaperscraft.ru/image/single/gory_ozero_vershiny_119133_3840x2400.jpg"
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -74,7 +92,7 @@ const AuthPage = () => {
             </p>
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
               className="mt-8 grid grid-cols-6 gap-6"
             >
               {arrInput.map((item, index) => (
@@ -85,8 +103,9 @@ const AuthPage = () => {
                     type={item.type}
                     id={item.id}
                     placeholder={item.placeholder}
-                    value={formData[item.id]}
-                    onChange={handleChange}
+                    register={register}
+                    validation={item.value}
+                    error={errors[item.id]}
                   />
                 </div>
               ))}

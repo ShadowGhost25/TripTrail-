@@ -6,23 +6,23 @@ const CustomInput = ({
   type,
   id,
   placeholder,
-  newValue,
-  onChange,
+  register,
+  validation,
+  error,
 }) => {
   return (
     <label
       htmlFor={htmlFor}
-      className="block overflow-hidden rounded-md border  bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
+      className={`${error ? 'block overflow-hidden rounded-md border bg-white border-red-600 px-3 py-2 focus-within:border-red-600 focus-within:ring-1 focus-within:ring-red-700 dark:border-red-600 dark:bg-gray-800' : 'input-style'}`}
     >
-      <span className="text-base font-medium text-gray-700 dark:text-gray-200 ">
+      <span className="text-base font-medium text-gray-700 dark:text-gray-200">
         {text}
       </span>
       {type === 'textarea' ? (
         <textarea
           id={id}
           className="mt-1 w-full h-[100px] border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-          value={newValue}
-          onChange={onChange}
+          {...(register ? register(id, validation) : {})}
           placeholder={placeholder}
         />
       ) : (
@@ -30,10 +30,14 @@ const CustomInput = ({
           type={type}
           id={id}
           placeholder={placeholder}
-          value={newValue}
-          onChange={onChange}
+          {...(register ? register(id, validation) : {})}
           className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
         />
+      )}
+      {error && (
+        <span className="text-red-600 dark:text-red-400 text-sm ">
+          {error.message}
+        </span>
       )}
     </label>
   )
@@ -43,10 +47,11 @@ CustomInput.propTypes = {
   htmlFor: PropTypes.string,
   text: PropTypes.string,
   type: PropTypes.string,
-  newValue: PropTypes.string,
+  register: PropTypes.func,
+  validation: PropTypes.object,
   id: PropTypes.string,
   placeholder: PropTypes.string,
-  onChange: PropTypes.func,
+  error: PropTypes.object,
 }
 
 export default CustomInput

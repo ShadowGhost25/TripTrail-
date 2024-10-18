@@ -5,8 +5,11 @@ import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton'
 import { Link } from 'react-router-dom'
 import Divider from '../components/Divider'
+import { logout } from '../redux/slice/authSlice'
+import { useDispatch } from 'react-redux'
 
 const Profile = () => {
+  const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
   const [user, setUser] = useState({
     firstName: 'Илья',
@@ -58,7 +61,11 @@ const Profile = () => {
     })
     setIsEditing(false)
   }
-
+  const logoutClick = () => {
+    console.log('asd')
+    dispatch(logout())
+    window.localStorage.removeItem('token')
+  }
   return (
     <div className="div-container">
       <Header />
@@ -117,6 +124,14 @@ const Profile = () => {
                 <CustomButton
                   click={() => setIsEditing(true)}
                   text={'Редактировать профиль'}
+                  typeStyle={'primary'}
+                  colorText={'1'}
+                />
+              </div>
+              <div className=" mt-4 w-[250px]">
+                <CustomButton
+                  click={() => logoutClick()}
+                  text={'Выйти'}
                   typeStyle={'primary'}
                   colorText={'1'}
                 />

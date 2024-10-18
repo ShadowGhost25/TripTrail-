@@ -11,6 +11,11 @@ export default {
         'custom-xl': '1216px',
       },
     },
+    // plugins: [
+    //   function ({ addVariant }) {
+    //     addVariant('autofill', '&:-webkit-autofill')
+    //   },
+    // ],
   },
   darkMode: 'class',
   plugins: [],

@@ -3,8 +3,14 @@ import { route } from './route'
 import { useEffect, Suspense } from 'react'
 import { YMaps } from '@pbe/react-yandex-maps'
 import LoadingSpinner from './components/Loading'
+import { useDispatch } from 'react-redux'
+import { fetchAuthMe } from './redux/slice/authSlice'
 
 let App = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchAuthMe())
+  }, [dispatch, fetchAuthMe])
   const { pathname } = useLocation()
 
   useEffect(() => {
