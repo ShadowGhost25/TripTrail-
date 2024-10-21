@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.div-container {
+    @apply min-h-screen flex flex-col
+}
 .main-container {
   @apply flex-grow w-full  mx-auto my-4  max-w-screen-xl items-center gap-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4 sm:px-6 lg:px-8 ;
 
 }
-.div-container {
-    @apply min-h-screen flex flex-col
-}
-
 .block-container {
     @apply bg-gray-200 rounded-lg p-6 shadow-[0_0px_10px_5px_rgba(0,0,0,0.2)] sm:p-6 dark:bg-gray-800 dark:shadow-[0_0px_10px_5px_rgba(255,255,255,0.2)]
 }

@@ -23,6 +23,7 @@ const Banner = () => {
                 typeStyle={'primary'}
                 colorText={'2'}
                 text={'Создать маршрут'}
+                link={'/createroute'}
               />
             </div>
             <div className="w-full sm:w-auto">
@@ -31,6 +32,7 @@ const Banner = () => {
                 typeStyle={'normal'}
                 colorText={'3'}
                 text={'Посмотреть маршруты'}
+                link={'/viewroute'}
               />
             </div>
           </div>

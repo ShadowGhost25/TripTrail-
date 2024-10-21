@@ -7,12 +7,9 @@ import DarkMod from '../components/DarkMod'
 import { useForm } from 'react-hook-form'
 import 'react-toastify/dist/ReactToastify.css'
 import { fetchAuth, selectIsAuth } from '../redux/slice/authSlice'
-import { useEffect, useState } from 'react'
-import Toast from '../components/Toast'
-import { ToastContainer } from 'react-toastify'
+import { useEffect } from 'react'
 
 const AuthPage = () => {
-  const [showToast, setShowToast] = useState(false)
   const dispatch = useDispatch()
   const isAuth = useSelector(selectIsAuth)
   const navigate = useNavigate()
@@ -22,20 +19,18 @@ const AuthPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'test@test.com',
+      password: '12345678',
     },
     mode: 'onChange',
   })
 
   const onSubmit = async (values) => {
-    const data = await dispatch(fetchAuth(values))
-    console.log(data)
-    if ('token' in data.payload) {
-      console.log('asd')
+    try {
+      const data = await dispatch(fetchAuth(values))
       window.localStorage.setItem('token', data.payload.token)
-    } else {
-      setShowToast(true)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -67,10 +62,6 @@ const AuthPage = () => {
 
   return (
     <section className="bg-white dark:bg-gray-900">
-      <ToastContainer />
-      {showToast && (
-        <Toast message="Ошибка авторизации. Пожалуйста, проверьте свои данные." />
-      )}
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <img

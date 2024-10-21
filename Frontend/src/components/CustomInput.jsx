@@ -9,6 +9,7 @@ const CustomInput = ({
   register,
   validation,
   error,
+  newValue,
 }) => {
   return (
     <label
@@ -30,6 +31,7 @@ const CustomInput = ({
           type={type}
           id={id}
           placeholder={placeholder}
+          value={newValue}
           {...(register ? register(id, validation) : {})}
           className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
         />
@@ -49,6 +51,7 @@ CustomInput.propTypes = {
   type: PropTypes.string,
   register: PropTypes.func,
   validation: PropTypes.object,
+  newValue: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.object,

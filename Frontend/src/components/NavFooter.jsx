@@ -5,10 +5,9 @@ const NavFooter = () => {
     {
       title: 'Информация',
       link: [
+        { text: 'Профиль', to: '/profile' },
         { text: 'Создать маршрут', to: '/createroute' },
         { text: 'Просмотреть маршруты', to: '/viewroute' },
-
-        { text: 'О нас', to: '/aboutus' },
       ],
     },
     {
@@ -16,7 +15,7 @@ const NavFooter = () => {
       link: [
         { text: 'Контакты', to: '/contacts' },
         { text: 'FAQ', to: '/faq' },
-        { text: 'Live Chat' },
+        { text: 'О нас', to: '/aboutus' },
       ],
     },
     {

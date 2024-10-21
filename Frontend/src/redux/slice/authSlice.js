@@ -40,7 +40,7 @@ const authSlice = createSlice({
         state.data = action.payload
         state.status = 'loaded'
         toast.success('Вы успешно авторизовались', {
-          position: 'top-center',
+          position: 'top-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,

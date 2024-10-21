@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom'
 import CustomButton from './CustomButton'
 import Logo from './Logo'
 import DarkMod from './DarkMod'
+import { useSelector } from 'react-redux'
+import { selectIsAuth } from '../redux/slice/authSlice'
 
 function Header() {
+  const isAuth = useSelector(selectIsAuth)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navArr = [
     { title: 'Профиль', link: '/profile' },
     { title: 'Создать маршрут', link: '/createroute' },
     { title: 'Просмотреть маршруты', link: '/viewroute' },
   ]
-  const navArrBurgerMenu = localStorage.getItem('key')
+  const navArrBurgerMenu = isAuth
     ? [
         { title: 'Профиль', link: '/profile' },
         { title: 'Создать маршрут', link: '#' },
@@ -19,7 +22,7 @@ function Header() {
       ]
     : [
         { title: 'Авторизоваться', link: '/auth' },
-        { title: 'Зарегестрироваться', link: '/register' },
+        { title: 'Зарегистрироваться', link: '/register' },
       ]
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -50,23 +53,28 @@ function Header() {
         </div>
 
         <div className="min-h-[84px] flex  gap-4 ">
-          <div className="hidden sm:block">
-            <CustomButton
-              index={1}
-              text={'Авторизация'}
-              typeStyle={'primary'}
-              colorText={'1'}
-              link={'/auth'}
-            />
-          </div>
-          <div className="hidden sm:block">
-            <CustomButton
-              index={2}
-              text={'Регистрация'}
-              typeStyle={'normal'}
-              link={'/register'}
-            />
-          </div>
+          {!isAuth && (
+            <>
+              <div className="hidden sm:block">
+                <CustomButton
+                  index={1}
+                  text={'Авторизация'}
+                  typeStyle={'primary'}
+                  colorText={'1'}
+                  link={'/auth'}
+                />
+              </div>
+              <div className="hidden sm:block">
+                <CustomButton
+                  index={2}
+                  text={'Регистрация'}
+                  typeStyle={'normal'}
+                  link={'/register'}
+                />
+              </div>
+            </>
+          )}
+
           <div className="lg:hidden">
             <CustomButton
               index={3}
