@@ -10,7 +10,7 @@ let App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAuthMe())
-  }, [dispatch, fetchAuthMe])
+  }, [dispatch])
   const { pathname } = useLocation()
 
   useEffect(() => {

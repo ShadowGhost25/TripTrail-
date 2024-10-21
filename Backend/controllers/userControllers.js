@@ -3,30 +3,42 @@ import userModel from '../models/user.js'
 import bcrypt from 'bcrypt'
 import { validationResult } from 'express-validator'
 
-export const register =  async (req, res) => {
+export const register = async (req, res) => {
     try {
-        const password = req.body.password
-        const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(password, salt)
+        const { password, repeatPassword, firstName, lastName, email } = req.body;
+
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: { msg: 'Пользователь с такой почтой уже существует' } });
+        }
+
+        if (password !== repeatPassword) {
+            return res.status(400).json({ error: { msg: 'Пароли не совпадают' } });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+
         const doc = new userModel({
-            fullName: req.body.fullName,
-            email: req.body.email,
-            password: req.body.password,
-            passwordHash: hash,
-        })
-        const user = await doc.save()
-        const token = jwt.sign({
-            _id: user._id
-        }, 'secret123', { expiresIn: '30d' })
-        const { passwordHash, ...userData } = user._doc
-        res.json(
-            { ...userData, token }
-        )
+            firstName,
+            lastName,
+            email,
+            password: hash,
+        });
+
+        const user = await doc.save();
+
+        const token = jwt.sign({ _id: user._id }, 'secret123', { expiresIn: '30d' });
+
+        const { password: userPassword, ...userData } = user._doc;
+
+        res.json({ ...userData, token });
     } catch (err) {
-        console.log('Err регистрация => ', err)
-        res.status(500).json({ message: 'Неудалось зарегистрироваться' })
+        console.log('Ошибка при регистрации => ', err);
+        res.status(500).json({ message: 'Не удалось зарегистрироваться' });
     }
-}
+};
+
 //!
 export const login = async (req, res) => {
     try {
