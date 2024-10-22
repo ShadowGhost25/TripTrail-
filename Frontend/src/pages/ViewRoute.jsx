@@ -4,8 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CustomButton from '../components/CustomButton'
 import Divider from '../components/Divider'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchRoute } from '../redux/slice/routeSlice'
+import { useSelector } from 'react-redux'
 import LoadingSpinner from '../components/Loading'
 import { selectIsAuth } from '../redux/slice/authSlice'
 import NoAuth from '../components/NoAuth'
@@ -13,16 +12,11 @@ import NoAuth from '../components/NoAuth'
 const ViewRoutes = () => {
   const isAuth = useSelector(selectIsAuth)
 
-  const dispatch = useDispatch()
-  const { route, status } = useSelector((state) => state.route)
+  const { route, status, idRouteUser } = useSelector((state) => state.route)
+  const { id } = useSelector((state) => state.auth)
   const [selectedRoute, setSelectedRoute] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchRoute())
-    }
-  }, [dispatch, status])
+  console.log(idRouteUser + ' sada ' + id)
 
   const calculateTotalBudget = (budget) => {
     return budget[0].transport + budget[0].accommodation + budget[0].food
@@ -42,7 +36,6 @@ const ViewRoutes = () => {
       }
     }
   }, [status])
-  console.log(route)
   if (status === 'loading') {
     return <LoadingSpinner />
   } else {
@@ -53,12 +46,27 @@ const ViewRoutes = () => {
           <h1 className="title-style">Просмотр маршрутов</h1>
           {isAuth ? (
             <>
-              <CustomButton
-                typeStyle={'burgermenu'}
-                click={toggleMenu}
-                svg={true}
-                text={'Список маршрутов'}
-              />
+              {route.length !== 0 ? (
+                <CustomButton
+                  typeStyle={'burgermenu'}
+                  click={toggleMenu}
+                  svg={true}
+                  text={'Список маршрутов'}
+                />
+              ) : (
+                <div className="block-container">
+                  <h2 className="test subtitle-style">
+                    У вас пока нет маршрутов. Хотите создать ?
+                  </h2>
+                  <CustomButton
+                    text={'Создать маршрут'}
+                    typeStyle={'primary'}
+                    colorText={'1'}
+                    link={'/createroute'}
+                  />
+                </div>
+              )}
+
               <div className={`${isMenuOpen ? 'block' : 'hidden'}`}>
                 <ul>
                   {route.map((item, index) => (
@@ -124,7 +132,6 @@ const ViewRoutes = () => {
                     <Divider />
                     <div className="block-container">
                       <h2 className="subtitle-style">Бюджет поездки</h2>
-                      {console.log(selectedRoute.budget)}
                       <li>
                         Транспорт: {selectedRoute.budget[0].transport} рублей
                       </li>

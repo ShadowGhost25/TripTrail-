@@ -19,7 +19,7 @@ const AuthPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: 'test@test.com',
+      email: 'ilyushavavi@gmail.com',
       password: '12345678',
     },
     mode: 'onChange',
@@ -29,6 +29,7 @@ const AuthPage = () => {
     try {
       const data = await dispatch(fetchAuth(values))
       window.localStorage.setItem('token', data.payload.token)
+      window.location.reload()
     } catch (error) {
       console.log(error)
     }

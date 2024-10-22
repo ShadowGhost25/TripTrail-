@@ -17,8 +17,8 @@ function Header() {
   const navArrBurgerMenu = isAuth
     ? [
         { title: 'Профиль', link: '/profile' },
-        { title: 'Создать маршрут', link: '#' },
-        { title: 'Просмотреть маршруты', link: '#' },
+        { title: 'Создать маршрут', link: '/createroute' },
+        { title: 'Просмотреть маршруты', link: '/viewroute' },
       ]
     : [
         { title: 'Авторизоваться', link: '/auth' },

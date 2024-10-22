@@ -2,9 +2,10 @@ import routeModel from '../models/route.js'
 
 export const getAllRoute = async (req, res) => {
     try {
-        const route = await routeModel.find().populate('user').exec()
-        console.log(route)
-        res.json(route)
+const userId = req.params.id  
+        console.log(userId) 
+    const routes = await routeModel.find({ user: userId }).populate('user').exec()
+    res.json(routes)
     } catch (err) {
         console.log('Err маршрут => ', err)
         res.status(500).json({ message: 'Неудалось отобразить маршрут' })
@@ -63,8 +64,7 @@ export const updateRoute = async (req, res) => {
 
 export const createRoute = async (req, res) => {
   try {
-    const { title, places, notes, budget } = req.body
-
+    const { title, places, notes, budget, user } = req.body
     const doc = new routeModel({
       title,
       places,

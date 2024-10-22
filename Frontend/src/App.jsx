@@ -3,11 +3,18 @@ import { route } from './route'
 import { useEffect, Suspense } from 'react'
 import { YMaps } from '@pbe/react-yandex-maps'
 import LoadingSpinner from './components/Loading'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchAuthMe } from './redux/slice/authSlice'
+import { fetchRoute } from './redux/slice/routeSlice'
 
 let App = () => {
+  const { id, status } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
+  useEffect(() => {
+    if (status === 'loaded') {
+      dispatch(fetchRoute(id))
+    }
+  }, [dispatch, id, status])
   useEffect(() => {
     dispatch(fetchAuthMe())
   }, [dispatch])

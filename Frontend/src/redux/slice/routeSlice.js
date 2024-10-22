@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../axios'
 
-export const fetchRoute = createAsyncThunk('route/fetchRoute', async () => {
-  const { data } = await axios.get('/route')
+export const fetchRoute = createAsyncThunk('route/fetchRoute', async (id) => {
+  const { data } = await axios.get(`/route/${id}`)
   return data
 })
 
@@ -10,7 +10,7 @@ const routeSlice = createSlice({
   name: 'route',
   initialState: {
     route: [],
-    status: 'idle',
+    status: 'loading',
     error: null,
   },
   reducers: {},

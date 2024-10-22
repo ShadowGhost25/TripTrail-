@@ -52,7 +52,7 @@ const AboutUs = () => {
         <Divider />
         <section className="block-container">
           <h2 className="subtitle-style">Свяжитесь с нами</h2>
-          <p className="mt-4">
+          <p>
             Мы всегда рады вашим отзывам и предложениям. Свяжитесь с нами по
             следующему адресу:&nbsp;
             <address className="inline">
