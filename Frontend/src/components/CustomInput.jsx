@@ -22,10 +22,13 @@ const CustomInput = ({
       </span>
       {type === 'textarea' ? (
         <textarea
+          type={type}
           id={id}
-          className="mt-1 w-full h-[100px] border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-          {...(register ? register(id, validation) : {})}
           placeholder={placeholder}
+          value={newValue}
+          onChange={onChange}
+          {...(register ? register(id, validation) : {})}
+          className="mt-1 w-full h-[100px] border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
         />
       ) : (
         <input

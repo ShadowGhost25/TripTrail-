@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Map, Placemark } from '@pbe/react-yandex-maps'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -7,22 +7,41 @@ import CustomInput from '../components/CustomInput'
 import Divider from '../components/Divider'
 import NoAuth from '../components/NoAuth'
 import { selectIsAuth } from '../redux/slice/authSlice'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCreateRoute } from '../redux/slice/routeSlice'
 
 const CreateRoute = () => {
   const isAuth = useSelector(selectIsAuth)
+  const dispatch = useDispatch()
   const [places, setPlaces] = useState([])
-  const [budget, setBudget] = useState({
-    transport: 0,
-    accommodation: 0,
-    food: 0,
-  })
-  const [note, setNote] = useState('')
+  const [budget, setBudget] = useState([
+    {
+      transport: 0,
+      accommodation: 0,
+      food: 0,
+    },
+  ])
+  const [title, setTitle] = useState('')
+  const [notes, setNotes] = useState('')
   const [selectedPlace, setSelectedPlace] = useState(null)
+  const [ymapsLoaded, setYmapsLoaded] = useState(false) // Состояние для проверки загрузки ymaps
 
-  const addPlace = (coords) => {
+  // Проверка загрузки Yandex Maps API
+  useEffect(() => {
+    const checkYmaps = () => {
+      if (window.ymaps) {
+        setYmapsLoaded(true)
+      } else {
+        setTimeout(checkYmaps, 100) // Проверяем каждые 100 мс
+      }
+    }
+
+    checkYmaps()
+  }, [])
+
+  const addPlace = (coords, name) => {
     const newPlace = {
-      name: 'Новое место',
+      name: name || 'Новое место',
       lat: coords[0],
       lng: coords[1],
     }
@@ -30,18 +49,25 @@ const CreateRoute = () => {
   }
 
   const handleMapClick = (e) => {
+    if (!ymapsLoaded) return // Проверяем, загружен ли ymaps
     const coords = e.get('coords')
-    addPlace(coords)
-  }
 
-  const handlePlaceClick = (place) => {
-    setSelectedPlace(place) // Выбираем место при клике
+    // Используем геокодер для получения названия места
+    const geocoder = window.ymaps.geocode(coords)
+    geocoder.then((res) => {
+      const firstGeoObject = res.geoObjects.get(0)
+      const name = firstGeoObject
+        ? firstGeoObject.getAddressLine()
+        : 'Неизвестное место'
+      addPlace(coords, name)
+    })
   }
 
   const calculateBudget = () => {
     const total = budget.transport + budget.accommodation + budget.food
     return total
   }
+
   const arrInput = [
     {
       id: 'Transport',
@@ -71,6 +97,12 @@ const CreateRoute = () => {
         setBudget({ ...budget, food: parseFloat(e.target.value) }),
     },
   ]
+  const handleSaveMap = async () => {
+    const params = { title, places, notes, budget }
+    console.log(params)
+    const data = await dispatch(fetchCreateRoute(params))
+    console.log(data)
+  }
   return (
     <div className="div-container">
       <Header />
@@ -80,11 +112,12 @@ const CreateRoute = () => {
           <>
             <article className="block-container">
               <CustomInput
-                htmlFor="Nameroute"
+                htmlFor="nameRoute"
                 text="Название маршрута"
                 type="text"
-                id="Nameroute"
+                id="nameRoute"
                 placeholder="Введите название маршрута"
+                onChange={(e) => setTitle(e.target.value)}
               />
             </article>
             <Divider />
@@ -102,12 +135,8 @@ const CreateRoute = () => {
                   <Placemark
                     key={index}
                     geometry={[place.lat, place.lng]}
-                    onClick={() => handlePlaceClick(place)} // При клике на маркер выбираем место
                     options={{
-                      preset:
-                        selectedPlace === place
-                          ? 'islands#redIcon'
-                          : 'islands#blueIcon', // Выделяем выбранное место
+                      preset: 'islands#blueIcon',
                     }}
                   />
                 ))}
@@ -120,10 +149,8 @@ const CreateRoute = () => {
                 {places.map((place, index) => (
                   <li
                     key={index}
-                    className={`mb-2 cursor-pointer ${
-                      selectedPlace === place ? 'font-bold text-teal-500' : ''
-                    }`}
-                    onClick={() => handlePlaceClick(place)}
+                    className="mb-2 cursor-pointer"
+                    onClick={() => setSelectedPlace(place)}
                   >
                     {place.name} (Широта: {place.lat}, Долгота: {place.lng})
                   </li>
@@ -149,8 +176,7 @@ const CreateRoute = () => {
               <CustomInput
                 text="Заметки"
                 id="Notes"
-                value={note}
-                onChange={setNote}
+                onChange={(e) => setNotes(e.target.value)}
                 placeholder="Введите заметки..."
                 type="textarea"
               />
@@ -190,6 +216,7 @@ const CreateRoute = () => {
                 text={'Сохранить маршрут'}
                 typeStyle={'primary'}
                 colorText={'1'}
+                click={handleSaveMap}
               />
             </div>
           </>

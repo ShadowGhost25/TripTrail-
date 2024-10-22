@@ -24,6 +24,7 @@ const MainPage = () => {
       })
     }
   }, [])
+  console.log(window.ymaps)
   return (
     <div className="div-container">
       <Header />

@@ -14,7 +14,7 @@ export const routeValidation = [
     }),
   body('notes', 'Введите корректно заметки').optional().isString(),
   body('budget', 'Введите корректные данные бюджета')
-    .isArray()
+    .isObject()
     .custom((budget) => {
       return budget.every(
         (item) =>
