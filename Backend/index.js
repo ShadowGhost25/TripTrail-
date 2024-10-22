@@ -1,9 +1,9 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import { loginValidation, registerValidation } from './validations/auth.js'
+import { loginValidation, registerValidation, updateValidation } from './validations/auth.js'
 import checkAuth from './utils/checkAuth.js'
 import cors from 'cors'
-import { login, me, register } from './controllers/userControllers.js'
+import { login, me, register, updateUser } from './controllers/userControllers.js'
 import { createRoute, getAllRoute, removeRoute, updateRoute } from './controllers/RouteController.js'
 import { routeValidation } from './validations/route.js'
 import handleErrors from './utils/handleErrors.js'
@@ -22,13 +22,14 @@ app.get('/', (req, res) => {
 })
 app.get('/me', checkAuth, me)
 //!
-app.get('/route', getAllRoute)
+app.get('/route/:id', getAllRoute)
 app.post('/route', checkAuth, routeValidation, handleErrors, createRoute)
 app.delete('/route/:id', checkAuth, removeRoute)
 app.patch('/route/:id', checkAuth, routeValidation, handleErrors, updateRoute)
 //!
 app.post('/login', loginValidation, handleErrors, login)
 app.post('/register', registerValidation, handleErrors, register)
+app.patch('/user/:id',checkAuth, updateValidation, handleErrors, updateUser)
 //!
 app.listen(4444, (err) => {
     if (err) {

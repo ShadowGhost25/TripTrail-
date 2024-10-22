@@ -16,6 +16,18 @@ export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async () => {
   return data
 })
 
+export const fetchUpdate = createAsyncThunk(
+  'path/fetchUpdate',
+  async (params) => {
+    try {
+      const { data } = await axios.patch(`/user/${params.id}`, params)
+      return data
+    } catch (error) {
+      throw new Error(error.response.data.error.msg)
+    }
+  },
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -25,9 +37,18 @@ const authSlice = createSlice({
   },
   reducers: {
     logout: (state) => {
-      console.log(state.data)
       state.data = null
-      toast.info('Вы вышли из аккаунта')
+      toast.success('Вы вышли из аккаунта', {
+        position: 'top-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce,
+      })
     },
   },
   extraReducers: (login) => {
@@ -39,17 +60,7 @@ const authSlice = createSlice({
       .addCase(fetchAuth.fulfilled, (state, action) => {
         state.data = action.payload
         state.status = 'loaded'
-        toast.success('Вы успешно авторизовались', {
-          position: 'top-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-          transition: Bounce,
-        })
+        localStorage.setItem('isAuthenticated', 'true')
       })
       .addCase(fetchAuth.rejected, (state, action) => {
         state.data = null
@@ -66,18 +77,41 @@ const authSlice = createSlice({
           transition: Bounce,
         })
       })
+      //!
       .addCase(fetchAuthMe.pending, (state) => {
         state.data = null
         state.status = 'loading'
       })
       .addCase(fetchAuthMe.fulfilled, (state, action) => {
-        state.data = action.payload
-        state.id = action.payload._id
+        state.data = action.payload.userData
+        state.id = action.payload.userData._id
         state.status = 'loaded'
       })
       .addCase(fetchAuthMe.rejected, (state) => {
         state.data = null
         state.status = 'error'
+      })
+      //!
+      .addCase(fetchUpdate.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchUpdate.fulfilled, (state, action) => {
+        state.status = 'loaded'
+        state.data = action.payload
+      })
+      .addCase(fetchUpdate.rejected, (state, action) => {
+        state.status = 'error'
+        toast.error(action.error.message, {
+          position: 'top-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          transition: Bounce,
+        })
       })
   },
 })

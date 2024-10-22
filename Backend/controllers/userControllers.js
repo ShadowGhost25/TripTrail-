@@ -38,7 +38,6 @@ export const register = async (req, res) => {
         res.status(500).json({ message: 'Не удалось зарегистрироваться' });
     }
 };
-
 //!
 export const login = async (req, res) => {
     try {
@@ -48,8 +47,7 @@ export const login = async (req, res) => {
                 message: 'Неверный пароль или логин'
             })
         }
-
-        const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash)
+        const isValidPass = await bcrypt.compare(req.body.password, user._doc.password)
         if (!isValidPass) {
             return res.status(400).json({
                 message: 'Неверный пароль или логин'
@@ -83,5 +81,33 @@ export const me = async (req, res) => {
     } catch (err) {
         console.log('Err аутентификация => ', err)
         res.status(500).json({ message: 'Нет доступа' })
+    }
+}
+//!
+export const updateUser = async (req, res) => {
+    try {
+        const userId = req.params.id
+
+        const updateUser = await userModel.findByIdAndUpdate(
+            userId,
+            {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+            },
+        )
+
+        if (!updateUser) {
+            return res.status(404).json({
+                message: 'Пользователь не найден',
+            })
+        }
+
+        res.json(updateUser)
+    } catch (err) {
+        console.log('Err при обновлении пользователя => ', err)
+        res.status(500).json({
+            message: 'Не удалось обновить пользователя',
+        })
     }
 }

@@ -5,42 +5,20 @@ import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton'
 import { Link } from 'react-router-dom'
 import Divider from '../components/Divider'
-import { logout, selectIsAuth } from '../redux/slice/authSlice'
+import { fetchUpdate, logout, selectIsAuth } from '../redux/slice/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import NoAuth from '../components/NoAuth'
+import { Bounce, toast } from 'react-toastify'
 
 const Profile = () => {
   const isAuth = useSelector(selectIsAuth)
-  const { data } = useSelector((state) => state.auth)
+  const { data, id } = useSelector((state) => state.auth)
+  const { route, status } = useSelector((state) => state.route)
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
-
-  // Проверяем, существует ли userData и устанавливаем значения по умолчанию
-  const userData = data?.userData || { firstName: '', lastName: '', email: '' }
-
-  const [user, setUser] = useState({
-    firstName: userData.firstName,
-    lastName: userData.lastName,
-    email: userData.email,
-    createdRoutes: [
-      { id: 1, name: 'Маршрут по Москве' },
-      { id: 2, name: 'Тур по Санкт-Петербургу' },
-    ],
-  })
-
-  const [newFirstName, setFirstName] = useState(user.firstName)
-  const [newLastName, setLastName] = useState(user.lastName)
-  const [newEmail, setNewEmail] = useState(user.email)
-
-  useEffect(() => {
-    // Обновляем состояние user, когда data изменяется
-    setUser((prevUser) => ({
-      ...prevUser,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-    }))
-  }, [data]) // Зависимость для обновления при изменении data
+  const [firstName, setFirstName] = useState(data?.firstName || '')
+  const [lastName, setLastName] = useState(data?.lastName || '')
+  const [email, setEmail] = useState(data?.email || '')
 
   const arrForm = [
     {
@@ -48,8 +26,8 @@ const Profile = () => {
       text: 'Имя',
       type: 'text',
       id: 'FirstName',
+      value: firstName,
       placeholder: 'Редактировать Имя',
-      value: newFirstName,
       onChange: (e) => setFirstName(e.target.value),
     },
     {
@@ -57,8 +35,8 @@ const Profile = () => {
       text: 'Фамилия',
       type: 'text',
       id: 'LastName',
+      value: lastName,
       placeholder: 'Редактировать Фамилию',
-      value: newLastName,
       onChange: (e) => setLastName(e.target.value),
     },
     {
@@ -66,26 +44,43 @@ const Profile = () => {
       text: 'Email',
       type: 'email',
       id: 'Email',
+      value: email,
       placeholder: 'Редактировать email',
-      value: newEmail,
-      onChange: (e) => setNewEmail(e.target.value),
+      onChange: (e) => setEmail(e.target.value),
     },
   ]
+  useEffect(() => {
+    const isProfileUpdated = localStorage.getItem('profileUpdateSuccess')
+    if (isProfileUpdated) {
+      toast.success('Вы обновили данные', {
+        position: 'top-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce,
+      })
 
-  const handleSaveProfile = () => {
-    setUser({
-      ...user,
-      firstName: newFirstName,
-      lastName: newLastName,
-      email: newEmail,
-    })
-    setIsEditing(false)
+      localStorage.removeItem('profileUpdateSuccess')
+    }
+  }, [])
+  const handleClick = async () => {
+    const params = { firstName, lastName, email, id }
+    const data = await dispatch(fetchUpdate(params))
+    if (data.payload !== undefined) {
+      localStorage.setItem('profileUpdateSuccess', 'true')
+      window.location.reload()
+    }
   }
 
   const logoutClick = () => {
     dispatch(logout())
     window.localStorage.removeItem('token')
   }
+
   return (
     <div className="div-container">
       <Header />
@@ -115,10 +110,10 @@ const Profile = () => {
                   <div className="w-[280px] flex justify-between">
                     <div className="mb-4">
                       <CustomButton
-                        click={handleSaveProfile}
                         text="Сохранить"
                         typeStyle="primary"
                         colorText="1"
+                        click={handleClick}
                       />
                     </div>
                     <div>
@@ -135,15 +130,15 @@ const Profile = () => {
                 <div className="block-container">
                   <h2 className="subtitle-style">Информация пользователя</h2>
                   <p>
-                    <strong>Имя: </strong> {user.firstName}
+                    <strong>Имя: </strong> {data.firstName}
                   </p>
                   <p>
-                    <strong>Фамилия: </strong> {user.lastName}
+                    <strong>Фамилия: </strong> {data.lastName}
                   </p>
                   <p>
-                    <strong>Email: </strong> {user.email}
+                    <strong>Email: </strong> {data.email}
                   </p>
-                  <div className=" mt-4 w-[250px]">
+                  <div className="mt-4 w-[250px]">
                     <CustomButton
                       click={() => setIsEditing(true)}
                       text={'Редактировать профиль'}
@@ -151,9 +146,9 @@ const Profile = () => {
                       colorText={'1'}
                     />
                   </div>
-                  <div className=" mt-4 w-[250px]">
+                  <div className="mt-4 w-[250px]">
                     <CustomButton
-                      click={() => logoutClick()}
+                      click={logoutClick}
                       text={'Выйти'}
                       typeStyle={'primary'}
                       colorText={'1'}
@@ -164,30 +159,42 @@ const Profile = () => {
             </div>
             <Divider />
             <div className="block-container">
-              <h2 className="subtitle-style">Мои маршруты</h2>
-              {user.createdRoutes.length > 0 ? (
-                <ul>
-                  {user.createdRoutes.map((route) => (
-                    <li key={route.id} className="mb-2">
-                      <Link
-                        to={'/viewroute'}
-                        className="text-teal-600 font-bold"
-                      >
-                        {route.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>Вы ещё не создали маршрутов.</p>
-              )}
+              {status === 'loaded' &&
+                (route.length > 0 ? (
+                  <>
+                    <h2 className="subtitle-style">Мои маршруты</h2>
+                    <ul>
+                      {route.map((routeItem) => (
+                        <li key={routeItem._id} className="mb-2">
+                          <Link
+                            to={'/viewroute'}
+                            className="text-teal-600 font-bold"
+                          >
+                            {routeItem.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="test subtitle-style">
+                      У вас пока нет маршрутов. Хотите создать?
+                    </h2>
+                    <CustomButton
+                      text={'Создать маршрут'}
+                      typeStyle={'primary'}
+                      colorText={'1'}
+                      link={'/createroute'}
+                    />
+                  </>
+                ))}
             </div>
           </>
         ) : (
           <NoAuth />
         )}
       </main>
-
       <Footer />
     </div>
   )
