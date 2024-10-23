@@ -64,17 +64,7 @@ const authSlice = createSlice({
       .addCase(fetchAuth.rejected, (state, action) => {
         state.data = null
         state.status = 'error'
-        toast.error(action.error.message, {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-          transition: Bounce,
-        })
+        state.message = action.error.message
       })
       //!
       .addCase(fetchAuthMe.pending, (state) => {

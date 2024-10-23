@@ -11,10 +11,11 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CustomButton from '../components/CustomButton'
 import Divider from '../components/Divider'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from '../redux/slice/authSlice'
 import NoAuth from '../components/NoAuth'
 import LoadingSpinner from '../components/Loading'
+import { fetchDelete } from '../redux/slice/routeSlice'
 
 const ViewRoutes = () => {
   const isAuth = useSelector(selectIsAuth)
@@ -23,6 +24,7 @@ const ViewRoutes = () => {
   const [selectedPlace, setSelectedPlace] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const isLoadingHome = status === 'loaded'
+  const dispatch = useDispatch()
 
   const calculateTotalBudget = (budget) => {
     return budget[0].transport + budget[0].accommodation + budget[0].food
@@ -51,6 +53,12 @@ const ViewRoutes = () => {
     return selectedPlace
       ? [selectedPlace.lat, selectedPlace.lng]
       : [selectedRoute.places[0].lat, selectedRoute.places[0].lng]
+  }
+  const handleRemove = (id) => {
+    if (window.confirm('Вы действительно хотите удалить маршрут ?')) {
+      dispatch(fetchDelete(id))
+      window.location.reload()
+    }
   }
 
   return (
@@ -86,7 +94,7 @@ const ViewRoutes = () => {
                 )}
 
                 <div className={`${isMenuOpen ? 'block' : 'hidden'}`}>
-                  <ul>
+                  <ul className="max-h-[248px] overflow-y-auto">
                     {route.map((item, index) => (
                       <div key={index} className="my-4">
                         <CustomButton
@@ -181,22 +189,32 @@ const ViewRoutes = () => {
                       <Divider />
                       <div className="block-container">
                         <h2 className="subtitle-style">Бюджет поездки</h2>
-                        <li>
-                          Транспорт: {selectedRoute.arrBudget[0].transport}{' '}
-                          рублей
+                        <li className="mb-2">
+                          Транспорт: {selectedRoute.arrBudget[0].transport}
+                          &nbsp; рублей
                         </li>
-                        <li>
-                          Жилье: {selectedRoute.arrBudget[0].accommodation}{' '}
-                          рублей
+                        <li className="mb-2">
+                          Жилье: {selectedRoute.arrBudget[0].accommodation}
+                          &nbsp; рублей
                         </li>
-                        <li>
-                          Питание: {selectedRoute.arrBudget[0].food} рублей
+                        <li className="mb-2">
+                          Питание: {selectedRoute.arrBudget[0].food}
+                          &nbsp;рублей
                         </li>
                         <p className="font-bold mt-4">
-                          Общий бюджет:{' '}
+                          Общий бюджет:&nbsp;
                           {calculateTotalBudget(selectedRoute.arrBudget)}
                           &nbsp;рублей
                         </p>
+                      </div>
+                      <div className="mt-4 md:w-[300px]">
+                        {console.log(selectedRoute)}
+                        <CustomButton
+                          typeStyle={'cancellation'}
+                          colorText={'4'}
+                          text={'Удалить'}
+                          click={() => handleRemove(selectedRoute._id)}
+                        />
                       </div>
                     </>
                   )}

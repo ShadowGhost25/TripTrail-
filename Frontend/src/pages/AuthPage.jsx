@@ -7,6 +7,7 @@ import DarkMod from '../components/DarkMod'
 import { useForm } from 'react-hook-form'
 import 'react-toastify/dist/ReactToastify.css'
 import { fetchAuth, selectIsAuth } from '../redux/slice/authSlice'
+import { Bounce, toast } from 'react-toastify'
 
 const AuthPage = () => {
   const dispatch = useDispatch()
@@ -24,13 +25,23 @@ const AuthPage = () => {
   })
 
   const onSubmit = async (values) => {
-    try {
-      const data = await dispatch(fetchAuth(values))
+    const data = await dispatch(fetchAuth(values))
+    if (!data.error) {
       window.localStorage.setItem('token', data.payload.token)
       localStorage.setItem('isAuthenticated', 'true')
       window.location.reload()
-    } catch (error) {
-      console.log(error)
+    } else {
+      toast.error(data.error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce,
+      })
     }
   }
 

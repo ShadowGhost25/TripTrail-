@@ -7,7 +7,6 @@ import LoadingSpinner from '../components/Loading'
 import { useSelector } from 'react-redux'
 const MainPage = () => {
   useEffect(() => {
-    // Проверяем флаг успешной авторизации
     const isAuthenticated = localStorage.getItem('isAuthenticated')
     const isRegister = localStorage.getItem('isRegister')
     if (isAuthenticated) {

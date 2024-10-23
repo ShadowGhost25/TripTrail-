@@ -18,6 +18,9 @@ export const fetchCreateRoute = createAsyncThunk(
     }
   },
 )
+export const fetchDelete = createAsyncThunk('route/fetchDelete', async (id) => {
+  await axios.delete(`/route/${id}`)
+})
 const routeSlice = createSlice({
   name: 'route',
   initialState: {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
+  Clusterer,
   FullscreenControl,
   ListBox,
   ListBoxItem,
@@ -133,6 +134,7 @@ const CreateRoute = () => {
   }
 
   const handlePlacemarkClick = (place) => {
+    setMapCenter([place.lat, place.lng])
     setSelectedPlace(place)
   }
 
@@ -193,19 +195,29 @@ const CreateRoute = () => {
                 height="400px"
                 onClick={handleMapClick}
               >
-                {places.map((place, index) => (
-                  <Placemark
-                    key={index}
-                    geometry={[place.lat, place.lng]}
-                    options={{
-                      preset:
-                        selectedPlace === place
-                          ? 'islands#redIcon'
-                          : 'islands#blueIcon',
-                    }}
-                    onClick={() => handlePlacemarkClick(place)}
-                  />
-                ))}
+                <Clusterer
+                  options={{
+                    preset: 'islands#invertedVioletClusterIcons',
+                    groupByCoordinates: false,
+                  }}
+                >
+                  {places.map((place, index) => (
+                    <Placemark
+                      key={index}
+                      geometry={[place.lat, place.lng]}
+                      properties={{
+                        balloonContent: place.name,
+                      }}
+                      options={{
+                        preset:
+                          selectedPlace === place
+                            ? 'islands#redIcon'
+                            : 'islands#blueIcon',
+                      }}
+                      onClick={() => handlePlacemarkClick(place)}
+                    />
+                  ))}
+                </Clusterer>
                 <TrafficControl options={{ float: 'right' }} />
                 <FullscreenControl />
                 <ZoomControl />
@@ -236,7 +248,7 @@ const CreateRoute = () => {
                     }
                     onClick={() => handlePlacemarkClick(place)}
                   >
-                    {place.name} (Широта: {place.lat}, Долгота: {place.lng})
+                    {place.name}
                   </li>
                 ))}
               </ul>
@@ -280,6 +292,7 @@ const CreateRoute = () => {
                 {arrInput.map((item, index) => (
                   <article key={index}>
                     <CustomInput
+                      key={index}
                       htmlFor={item.id}
                       text={item.text}
                       type={'number'}

@@ -21,6 +21,9 @@ function Header() {
         { title: 'Просмотреть маршруты', link: '/viewroute' },
       ]
     : [
+        { title: 'Профиль', link: '/profile' },
+        { title: 'Создать маршрут', link: '/createroute' },
+        { title: 'Просмотреть маршруты', link: '/viewroute' },
         { title: 'Авторизоваться', link: '/auth' },
         { title: 'Зарегистрироваться', link: '/register' },
       ]
@@ -55,7 +58,7 @@ function Header() {
         <div className="min-h-[84px] flex  gap-4 ">
           {!isAuth && (
             <>
-              <div className="hidden sm:block">
+              <div className="hidden lg:block">
                 <CustomButton
                   index={1}
                   text={'Авторизация'}
@@ -64,7 +67,7 @@ function Header() {
                   link={'/auth'}
                 />
               </div>
-              <div className="hidden sm:block">
+              <div className="hidden  lg:block">
                 <CustomButton
                   index={2}
                   text={'Регистрация'}
