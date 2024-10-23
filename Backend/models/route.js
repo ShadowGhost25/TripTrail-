@@ -26,7 +26,7 @@ const routeSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    budget: {
+    arrBudget: {
       type: [budgetItemSchema],
       required: true,
     },

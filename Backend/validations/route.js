@@ -3,7 +3,7 @@ import { body } from 'express-validator'
 export const routeValidation = [
   body('title', 'Введите название маршрута').isString().isLength({ min: 2 }),
   body('places', 'Укажите корректные места')
-    .isArray()
+    .isArray({min: 1})
     .custom((places) => {
       return places.every(
         (place) =>
@@ -12,15 +12,15 @@ export const routeValidation = [
           typeof place.lng === 'number'
       )
     }),
-  body('notes', 'Введите корректно заметки').optional().isString(),
-  body('budget', 'Введите корректные данные бюджета')
-    .isObject()
+  body('notes', 'Введите корректно заметки').isString().isLength({ min: 1 }),
+  body('arrBudget', 'Введите корректные данные бюджета')
+    .isArray()
     .custom((budget) => {
       return budget.every(
-        (item) =>
-          typeof item.transport === 'number' &&
-          typeof item.accommodation === 'number' &&
-          typeof item.food === 'number'
+        (budget) =>
+          typeof budget.transport === 'number' &&
+          typeof budget.accommodation === 'number' &&
+          typeof budget.food === 'number'
       )
     }),
 ]

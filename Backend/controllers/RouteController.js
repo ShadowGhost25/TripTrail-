@@ -1,9 +1,8 @@
 import routeModel from '../models/route.js'
 
-export const getAllRoute = async (req, res) => {
+export const getMeRoute = async (req, res) => {
     try {
-const userId = req.params.id  
-        console.log(userId) 
+    const userId = req.params.id  
     const routes = await routeModel.find({ user: userId }).populate('user').exec()
     res.json(routes)
     } catch (err) {
@@ -43,7 +42,7 @@ export const updateRoute = async (req, res) => {
                 title: req.body.title,
                 places: req.body.places,
                 notes: req.body.notes,
-                budget: req.body.budget,
+                arrBudget: req.body.arrBudget,
             },
         )
 
@@ -64,12 +63,12 @@ export const updateRoute = async (req, res) => {
 
 export const createRoute = async (req, res) => {
   try {
-    const { title, places, notes, budget, user } = req.body
+    const { title, places, notes, arrBudget, user } = req.body
     const doc = new routeModel({
       title,
       places,
       notes,
-      budget,
+      arrBudget,
       user: req.userId,
     })
 

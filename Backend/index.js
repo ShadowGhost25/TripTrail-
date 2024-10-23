@@ -4,7 +4,7 @@ import { loginValidation, registerValidation, updateValidation } from './validat
 import checkAuth from './utils/checkAuth.js'
 import cors from 'cors'
 import { login, me, register, updateUser } from './controllers/userControllers.js'
-import { createRoute, getAllRoute, removeRoute, updateRoute } from './controllers/RouteController.js'
+import { createRoute, getMeRoute, removeRoute, updateRoute } from './controllers/RouteController.js'
 import { routeValidation } from './validations/route.js'
 import handleErrors from './utils/handleErrors.js'
 
@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 })
 app.get('/me', checkAuth, me)
 //!
-app.get('/route/:id', getAllRoute)
+app.get('/route/:id', getMeRoute)
 app.post('/route', checkAuth, routeValidation, handleErrors, createRoute)
 app.delete('/route/:id', checkAuth, removeRoute)
 app.patch('/route/:id', checkAuth, routeValidation, handleErrors, updateRoute)

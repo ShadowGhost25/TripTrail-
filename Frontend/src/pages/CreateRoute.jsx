@@ -1,5 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Map, Placemark } from '@pbe/react-yandex-maps'
+import { useEffect, useState } from 'react'
+import {
+  FullscreenControl,
+  ListBox,
+  ListBoxItem,
+  Map,
+  Placemark,
+  TrafficControl,
+  TypeSelector,
+  ZoomControl,
+} from '@pbe/react-yandex-maps'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import CustomButton from '../components/CustomButton'
@@ -9,22 +18,20 @@ import NoAuth from '../components/NoAuth'
 import { selectIsAuth } from '../redux/slice/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCreateRoute } from '../redux/slice/routeSlice'
+import { Bounce, toast } from 'react-toastify'
 
 const CreateRoute = () => {
   const isAuth = useSelector(selectIsAuth)
+  const { status } = useSelector((state) => state.auth)
+  console.log(status)
   const dispatch = useDispatch()
   const [places, setPlaces] = useState([])
-  const [budget, setBudget] = useState([
-    {
-      transport: 0,
-      accommodation: 0,
-      food: 0,
-    },
-  ])
+  const [budget, setBudget] = useState([])
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
   const [selectedPlace, setSelectedPlace] = useState(null)
-  const [ymapsLoaded, setYmapsLoaded] = useState(false) // Состояние для проверки загрузки ymaps
+  const [ymapsLoaded, setYmapsLoaded] = useState(false)
+  const [mapCenter, setMapCenter] = useState([55.751244, 37.618423]) // Начальные координаты карты
 
   // Проверка загрузки Yandex Maps API
   useEffect(() => {
@@ -32,7 +39,7 @@ const CreateRoute = () => {
       if (window.ymaps) {
         setYmapsLoaded(true)
       } else {
-        setTimeout(checkYmaps, 100) // Проверяем каждые 100 мс
+        setTimeout(checkYmaps, 100)
       }
     }
 
@@ -41,7 +48,7 @@ const CreateRoute = () => {
 
   const addPlace = (coords, name) => {
     const newPlace = {
-      name: name || 'Новое место',
+      name: name,
       lat: coords[0],
       lng: coords[1],
     }
@@ -49,13 +56,13 @@ const CreateRoute = () => {
   }
 
   const handleMapClick = (e) => {
-    if (!ymapsLoaded) return // Проверяем, загружен ли ymaps
+    if (!ymapsLoaded) return
     const coords = e.get('coords')
 
-    // Используем геокодер для получения названия места
     const geocoder = window.ymaps.geocode(coords)
     geocoder.then((res) => {
       const firstGeoObject = res.geoObjects.get(0)
+      console.log(firstGeoObject)
       const name = firstGeoObject
         ? firstGeoObject.getAddressLine()
         : 'Неизвестное место'
@@ -64,9 +71,28 @@ const CreateRoute = () => {
   }
 
   const calculateBudget = () => {
-    const total = budget.transport + budget.accommodation + budget.food
+    const total =
+      (budget.transport || 0) + (budget.accommodation || 0) + (budget.food || 0)
     return total
   }
+  const cities = [
+    { name: 'Москва', lat: 55.7558, lng: 37.6173 },
+    { name: 'Пенза', lat: 53.1944, lng: 45.0185 },
+    { name: 'Санкт-Петербург', lat: 59.9343, lng: 30.3351 },
+    { name: 'Новосибирск', lat: 55.0084, lng: 82.0155 },
+    { name: 'Екатеринбург', lat: 56.8389, lng: 60.6057 },
+    { name: 'Нижний Новгород', lat: 56.3287, lng: 44.002 },
+    { name: 'Казань', lat: 55.8304, lng: 49.0661 },
+    { name: 'Челябинск', lat: 55.1644, lng: 61.4368 },
+    { name: 'Омск', lat: 54.9885, lng: 73.3242 },
+    { name: 'Самара', lat: 53.1959, lng: 50.1003 },
+    { name: 'Ростов-на-Дону', lat: 47.2232, lng: 39.718 },
+    { name: 'Красноярск', lat: 56.0153, lng: 92.8932 },
+    { name: 'Волгоград', lat: 48.708, lng: 44.513 },
+    { name: 'Уфа', lat: 54.7388, lng: 55.9721 },
+    { name: 'Хабаровск', lat: 48.482, lng: 135.0655 },
+    { name: 'Тюмень', lat: 57.1523, lng: 65.5272 },
+  ]
 
   const arrInput = [
     {
@@ -97,18 +123,56 @@ const CreateRoute = () => {
         setBudget({ ...budget, food: parseFloat(e.target.value) }),
     },
   ]
+
   const handleSaveMap = async () => {
-    const params = { title, places, notes, budget }
-    console.log(params)
+    const arrBudget = [budget]
+    const params = { title, places, notes, arrBudget }
     const data = await dispatch(fetchCreateRoute(params))
-    console.log(data)
+    if (data.payload !== undefined) {
+      localStorage.setItem('routeUpdateSuccess', 'true')
+      window.location.reload()
+    }
   }
+
+  const handlePlacemarkClick = (place) => {
+    setSelectedPlace(place)
+  }
+
+  const handleListBoxItemClick = (place) => {
+    setMapCenter([place.lat, place.lng]) // Устанавливаем центр карты на координаты выбранного места
+    setSelectedPlace(place) // Устанавливаем выбранное место
+  }
+  const handleRemovePlace = () => {
+    if (!selectedPlace) return
+
+    // Удаляем выбранное место из массива places
+    setPlaces(places.filter((place) => place !== selectedPlace))
+    setSelectedPlace(null) // Сбрасываем выбранное место
+  }
+  useEffect(() => {
+    const isProfileUpdated = localStorage.getItem('routeUpdateSuccess')
+    if (isProfileUpdated) {
+      toast.success('Вы создали маршрут', {
+        position: 'top-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce,
+      })
+
+      localStorage.removeItem('routeUpdateSuccess')
+    }
+  }, [])
   return (
     <div className="div-container">
       <Header />
       <main className="main-container">
         <h1 className="title-style">Создать маршрут</h1>
-        {isAuth ? (
+        {isAuth && status === 'loaded' ? (
           <>
             <article className="block-container">
               <CustomInput
@@ -126,7 +190,7 @@ const CreateRoute = () => {
                 Добавить места
               </label>
               <Map
-                defaultState={{ center: [55.751244, 37.618423], zoom: 10 }} // Москва по умолчанию
+                state={{ center: mapCenter, zoom: 10 }}
                 width="100%"
                 height="400px"
                 onClick={handleMapClick}
@@ -136,10 +200,28 @@ const CreateRoute = () => {
                     key={index}
                     geometry={[place.lat, place.lng]}
                     options={{
-                      preset: 'islands#blueIcon',
+                      preset:
+                        selectedPlace === place
+                          ? 'islands#redIcon'
+                          : 'islands#blueIcon',
                     }}
+                    onClick={() => handlePlacemarkClick(place)}
                   />
                 ))}
+                <TrafficControl options={{ float: 'right' }} />
+                <FullscreenControl />
+                <ZoomControl />
+                <TypeSelector options={{ float: 'right' }} />
+
+                <ListBox data={{ content: 'Города' }}>
+                  {cities.map((city, index) => (
+                    <ListBoxItem
+                      key={index}
+                      data={{ content: city.name }}
+                      onClick={() => handleListBoxItemClick(city)}
+                    />
+                  ))}
+                </ListBox>
               </Map>
             </article>
             <Divider />
@@ -149,8 +231,12 @@ const CreateRoute = () => {
                 {places.map((place, index) => (
                   <li
                     key={index}
-                    className="mb-2 cursor-pointer"
-                    onClick={() => setSelectedPlace(place)}
+                    className={
+                      selectedPlace === place
+                        ? 'text-teal-800 dark:text-teal-400 mb-2 cursor-pointer'
+                        : 'mb-2 cursor-pointer'
+                    }
+                    onClick={() => handlePlacemarkClick(place)}
                   >
                     {place.name} (Широта: {place.lat}, Долгота: {place.lng})
                   </li>
@@ -168,6 +254,14 @@ const CreateRoute = () => {
                   <p>
                     Координаты: {selectedPlace.lat}, {selectedPlace.lng}
                   </p>
+                  <div className="mt-2 w-[150px]">
+                    <CustomButton
+                      click={handleRemovePlace}
+                      typeStyle={'cancellation'}
+                      colorText={'4'}
+                      text={'Удалить'}
+                    />
+                  </div>
                 </div>
                 <Divider />
               </>
@@ -187,22 +281,14 @@ const CreateRoute = () => {
               <div className="grid grid-cols-3 gap-4">
                 {arrInput.map((item, index) => (
                   <article key={index}>
-                    <label
+                    <CustomInput
                       htmlFor={item.id}
-                      className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-600 dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                        {item.text}
-                      </span>
-
-                      <input
-                        type="number"
-                        id={item.id}
-                        className="mt-1 w-full border-none bg-transparent p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                        value={item.value}
-                        onChange={item.onChange}
-                      />
-                    </label>
+                      text={item.text}
+                      type={'number'}
+                      id={item.id}
+                      newValue={item.value}
+                      onChange={item.onChange}
+                    />
                   </article>
                 ))}
               </div>

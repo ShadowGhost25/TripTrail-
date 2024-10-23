@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../axios'
+import { Bounce, toast } from 'react-toastify'
 
 export const fetchRoute = createAsyncThunk('route/fetchRoute', async (id) => {
   const { data } = await axios.get(`/route/${id}`)
@@ -48,9 +49,20 @@ const routeSlice = createSlice({
         state.route = action.payload
         state.status = 'loaded'
       })
-      .addCase(fetchCreateRoute.rejected, (state) => {
+      .addCase(fetchCreateRoute.rejected, (state, action) => {
         state.route = null
         state.status = 'error'
+        toast.error(action.error.message, {
+          position: 'top-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          transition: Bounce,
+        })
       })
   },
 })
