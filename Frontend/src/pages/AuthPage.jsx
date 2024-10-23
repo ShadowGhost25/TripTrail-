@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomButton from '../components/CustomButton'
 import Logo from '../components/Logo'
@@ -7,12 +7,10 @@ import DarkMod from '../components/DarkMod'
 import { useForm } from 'react-hook-form'
 import 'react-toastify/dist/ReactToastify.css'
 import { fetchAuth, selectIsAuth } from '../redux/slice/authSlice'
-import { useEffect } from 'react'
 
 const AuthPage = () => {
   const dispatch = useDispatch()
   const isAuth = useSelector(selectIsAuth)
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -29,6 +27,7 @@ const AuthPage = () => {
     try {
       const data = await dispatch(fetchAuth(values))
       window.localStorage.setItem('token', data.payload.token)
+      localStorage.setItem('isAuthenticated', 'true')
       window.location.reload()
     } catch (error) {
       console.log(error)
@@ -54,12 +53,9 @@ const AuthPage = () => {
     },
   ]
 
-  // Используем useEffect для перехода на главную страницу при аутентификации
-  useEffect(() => {
-    if (isAuth) {
-      navigate('/')
-    }
-  }, [isAuth, navigate]) // Добавьте isAuth и navigate в зависимости
+  if (isAuth) {
+    return <Navigate to="/" />
+  }
 
   return (
     <section className="bg-white dark:bg-gray-900">

@@ -23,7 +23,6 @@ import { Bounce, toast } from 'react-toastify'
 const CreateRoute = () => {
   const isAuth = useSelector(selectIsAuth)
   const { status } = useSelector((state) => state.auth)
-  console.log(status)
   const dispatch = useDispatch()
   const [places, setPlaces] = useState([])
   const [budget, setBudget] = useState([])
@@ -62,7 +61,6 @@ const CreateRoute = () => {
     const geocoder = window.ymaps.geocode(coords)
     geocoder.then((res) => {
       const firstGeoObject = res.geoObjects.get(0)
-      console.log(firstGeoObject)
       const name = firstGeoObject
         ? firstGeoObject.getAddressLine()
         : 'Неизвестное место'

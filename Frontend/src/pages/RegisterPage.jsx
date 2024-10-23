@@ -13,7 +13,6 @@ import { useForm } from 'react-hook-form'
 const RegisterPage = () => {
   const dispatch = useDispatch()
   const isAuth = useSelector(selectIsAuth)
-
   const {
     register,
     handleSubmit,
@@ -31,9 +30,9 @@ const RegisterPage = () => {
 
   const onSubmit = async (values) => {
     const data = await dispatch(fetchRegister(values))
-    console.log(data.error)
     if (!data.error) {
       window.localStorage.setItem('token', data.payload.token)
+      localStorage.setItem('isRegister', 'true')
       window.location.reload()
     } else {
       toast.error(data.error.message, {

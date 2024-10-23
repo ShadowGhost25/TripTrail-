@@ -60,7 +60,6 @@ const authSlice = createSlice({
       .addCase(fetchAuth.fulfilled, (state, action) => {
         state.data = action.payload
         state.status = 'loaded'
-        localStorage.setItem('isAuthenticated', 'true')
       })
       .addCase(fetchAuth.rejected, (state, action) => {
         state.data = null

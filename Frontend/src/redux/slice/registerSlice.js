@@ -8,7 +8,6 @@ export const fetchRegister = createAsyncThunk(
       const { data } = await axios.post('/register', values)
       return data
     } catch (error) {
-      console.log(error.response.data)
       throw new Error(error.response.data.error.msg)
     }
   },
