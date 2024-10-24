@@ -32,12 +32,12 @@ function Header() {
   }
   return (
     <header className="mt-4 dark:bg-gray-900">
-      <div className="mx-auto flex max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto flex max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
         <div>
           <Logo />
           <DarkMod />
         </div>
-        <div className="min-h-[84px] flex-1">
+        <article className="min-h-[84px] flex-1">
           <nav
             aria-label="Global"
             className=" size-full hidden lg:flex justify-center"
@@ -53,9 +53,9 @@ function Header() {
               ))}
             </ul>
           </nav>
-        </div>
+        </article>
 
-        <div className="min-h-[84px] flex  gap-4 ">
+        <article className="min-h-[84px] flex  gap-4 ">
           {!isAuth && (
             <>
               <div className="hidden lg:block">
@@ -86,8 +86,8 @@ function Header() {
               svg={true}
             />
           </div>
-        </div>
-      </div>
+        </article>
+      </section>
       <div
         className={`mx-auto box-border ${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}
       >

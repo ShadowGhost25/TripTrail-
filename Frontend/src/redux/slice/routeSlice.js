@@ -32,7 +32,6 @@ const routeSlice = createSlice({
   extraReducers: (route) => {
     route
       .addCase(fetchRoute.pending, (state) => {
-        state.route = []
         state.status = 'loading'
       })
       .addCase(fetchRoute.fulfilled, (state, action) => {
@@ -40,12 +39,10 @@ const routeSlice = createSlice({
         state.status = 'loaded'
       })
       .addCase(fetchRoute.rejected, (state) => {
-        state.route = null
         state.status = 'error'
       })
       //!
       .addCase(fetchCreateRoute.pending, (state) => {
-        state.route = []
         state.status = 'loading'
       })
       .addCase(fetchCreateRoute.fulfilled, (state, action) => {
@@ -53,7 +50,6 @@ const routeSlice = createSlice({
         state.status = 'loaded'
       })
       .addCase(fetchCreateRoute.rejected, (state, action) => {
-        state.route = null
         state.status = 'error'
         toast.error(action.error.message, {
           position: 'top-left',

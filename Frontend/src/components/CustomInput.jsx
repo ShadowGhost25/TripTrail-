@@ -57,7 +57,7 @@ CustomInput.propTypes = {
   register: PropTypes.func,
   onChange: PropTypes.func,
   validation: PropTypes.object,
-  newValue: PropTypes.string,
+  newValue: PropTypes.number,
   id: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.object,

@@ -6,6 +6,8 @@ import { Bounce, toast } from 'react-toastify'
 import LoadingSpinner from '../components/Loading'
 import { useSelector } from 'react-redux'
 const MainPage = () => {
+  const { status } = useSelector((state) => state.auth)
+  const isLoadingHome = status === 'loaded'
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated')
     const isRegister = localStorage.getItem('isRegister')
@@ -38,9 +40,7 @@ const MainPage = () => {
       localStorage.removeItem('isRegister')
     }
   }, [])
-  const { status } = useSelector((state) => state.auth)
 
-  const isLoadingHome = status === 'loaded'
   return (
     <>
       {!isLoadingHome && window.localStorage.getItem('token') ? (

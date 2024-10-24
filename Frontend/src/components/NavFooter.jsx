@@ -41,7 +41,7 @@ const NavFooter = () => {
     },
   ]
   return (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:col-span-2 lg:grid-cols-3">
+    <section className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:col-span-2 lg:grid-cols-3">
       {arr.map((item, index) => (
         <nav key={index}>
           <p className="text-lg font-medium text-gray-900  dark:text-gray-200">
@@ -81,7 +81,7 @@ const NavFooter = () => {
           </ul>
         </nav>
       ))}
-    </div>
+    </section>
   )
 }
 

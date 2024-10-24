@@ -19,7 +19,8 @@ import { fetchDelete } from '../redux/slice/routeSlice'
 
 const ViewRoutes = () => {
   const isAuth = useSelector(selectIsAuth)
-  const { route, status } = useSelector((state) => state.route)
+  const { status } = useSelector((state) => state.auth)
+  const { route } = useSelector((state) => state.route)
   const [selectedRoute, setSelectedRoute] = useState(null)
   const [selectedPlace, setSelectedPlace] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -64,7 +65,11 @@ const ViewRoutes = () => {
   return (
     <>
       {!isLoadingHome && window.localStorage.getItem('token') ? (
-        <LoadingSpinner />
+        <>
+          {console.log(status)}
+          {console.log(!isLoadingHome && window.localStorage.getItem('token'))}
+          <LoadingSpinner />
+        </>
       ) : (
         <div className="div-container">
           <Header />
@@ -80,7 +85,7 @@ const ViewRoutes = () => {
                     text={'Список маршрутов'}
                   />
                 ) : (
-                  <div className="block-container">
+                  <article className="block-container">
                     <h2 className="test subtitle-style">
                       У вас пока нет маршрутов. Хотите создать ?
                     </h2>
@@ -90,10 +95,10 @@ const ViewRoutes = () => {
                       colorText={'1'}
                       link={'/createroute'}
                     />
-                  </div>
+                  </article>
                 )}
 
-                <div className={`${isMenuOpen ? 'block' : 'hidden'}`}>
+                <section className={`${isMenuOpen ? 'block' : 'hidden'}`}>
                   <ul className="max-h-[248px] overflow-y-auto">
                     {route.map((item, index) => (
                       <div key={index} className="my-4">
@@ -109,7 +114,7 @@ const ViewRoutes = () => {
                   </ul>
                   {selectedRoute && (
                     <>
-                      <div className="block-container">
+                      <article className="block-container">
                         <h2 className="subtitle-style">
                           Детали маршрута: {selectedRoute.name}
                         </h2>
@@ -148,9 +153,9 @@ const ViewRoutes = () => {
                           <ZoomControl />
                           <TypeSelector options={{ float: 'right' }} />
                         </Map>
-                      </div>
+                      </article>
                       <Divider />
-                      <div className="block-container">
+                      <article className="block-container">
                         <h2 className="subtitle-style">Список мест</h2>
                         {selectedRoute.places.map((place, index) => (
                           <p
@@ -165,11 +170,11 @@ const ViewRoutes = () => {
                             {place.name}
                           </p>
                         ))}
-                      </div>
+                      </article>
                       <Divider />
                       {selectedPlace && (
                         <>
-                          <div className="block-container">
+                          <article className="block-container">
                             <h2 className="subtitle-style">
                               Информация о выбранном месте
                             </h2>
@@ -178,16 +183,16 @@ const ViewRoutes = () => {
                               Координаты: {selectedPlace.lat},{' '}
                               {selectedPlace.lng}
                             </p>
-                          </div>
+                          </article>
                           <Divider />
                         </>
                       )}
-                      <div className="block-container">
+                      <article className="block-container">
                         <h2 className="subtitle-style">Заметки</h2>
                         <p>{selectedRoute.notes}</p>
-                      </div>
+                      </article>
                       <Divider />
-                      <div className="block-container">
+                      <article className="block-container">
                         <h2 className="subtitle-style">Бюджет поездки</h2>
                         <li className="mb-2">
                           Транспорт: {selectedRoute.arrBudget[0].transport}
@@ -206,7 +211,7 @@ const ViewRoutes = () => {
                           {calculateTotalBudget(selectedRoute.arrBudget)}
                           &nbsp;рублей
                         </p>
-                      </div>
+                      </article>
                       <div className="mt-4 md:w-[300px]">
                         {console.log(selectedRoute)}
                         <CustomButton
@@ -218,7 +223,7 @@ const ViewRoutes = () => {
                       </div>
                     </>
                   )}
-                </div>
+                </section>
               </>
             ) : (
               <NoAuth />

@@ -19,11 +19,11 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: 'Илья',
-      lastName: 'Вавилин',
-      email: 'ilyushavavi@gmail.com',
-      password: '12345678',
-      repeatPassword: '12345678',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
     },
     mode: 'onChange',
   })

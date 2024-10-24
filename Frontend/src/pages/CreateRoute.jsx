@@ -69,11 +69,7 @@ const CreateRoute = () => {
     })
   }
 
-  const calculateBudget = () => {
-    const total =
-      (budget.transport || 0) + (budget.accommodation || 0) + (budget.food || 0)
-    return total
-  }
+  //////////////////////////!
   const cities = [
     { name: 'Москва', lat: 55.7558, lng: 37.6173 },
     { name: 'Пенза', lat: 53.1944, lng: 45.0185 },
@@ -92,7 +88,6 @@ const CreateRoute = () => {
     { name: 'Хабаровск', lat: 48.482, lng: 135.0655 },
     { name: 'Тюмень', lat: 57.1523, lng: 65.5272 },
   ]
-
   const arrInput = [
     {
       id: 'Transport',
@@ -122,17 +117,23 @@ const CreateRoute = () => {
         setBudget({ ...budget, food: parseFloat(e.target.value) }),
     },
   ]
-
+  //////////////////////////!
   const handleSaveMap = async () => {
     const arrBudget = [budget]
     const params = { title, places, notes, arrBudget }
     const data = await dispatch(fetchCreateRoute(params))
+    console.log(data)
     if (data.payload !== undefined) {
       localStorage.setItem('routeUpdateSuccess', 'true')
       window.location.reload()
     }
   }
-
+  const calculateBudget = () => {
+    const total =
+      (budget.transport || 0) + (budget.accommodation || 0) + (budget.food || 0)
+    return total
+  }
+  //////////////////////////!
   const handlePlacemarkClick = (place) => {
     setMapCenter([place.lat, place.lng])
     setSelectedPlace(place)
@@ -149,6 +150,7 @@ const CreateRoute = () => {
     setPlaces(places.filter((place) => place !== selectedPlace))
     setSelectedPlace(null) // Сбрасываем выбранное место
   }
+  //////////////////////////!
   useEffect(() => {
     const isProfileUpdated = localStorage.getItem('routeUpdateSuccess')
     if (isProfileUpdated) {

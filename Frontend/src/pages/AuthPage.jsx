@@ -18,8 +18,8 @@ const AuthPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: 'ilyushavavi@gmail.com',
-      password: '12345678',
+      email: '',
+      password: '',
     },
     mode: 'onChange',
   })

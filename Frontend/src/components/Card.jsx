@@ -9,7 +9,7 @@ const Card = () => {
           <div className="flex items-center gap-4">
             <figure>
               <img
-                alt="Team member"
+                alt="me"
                 src="/src/img/photo.png"
                 className="h-16 w-16 rounded-full object-cover"
               />

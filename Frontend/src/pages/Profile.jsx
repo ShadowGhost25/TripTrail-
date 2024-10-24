@@ -13,8 +13,8 @@ import LoadingSpinner from '../components/Loading'
 
 const Profile = () => {
   const isAuth = useSelector(selectIsAuth)
-  const { data, id } = useSelector((state) => state.auth)
-  const { route, status } = useSelector((state) => state.route)
+  const { data, id, status } = useSelector((state) => state.auth)
+  const { route } = useSelector((state) => state.route)
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
   const [firstName, setFirstName] = useState(data?.firstName || '')
@@ -93,7 +93,7 @@ const Profile = () => {
             <h1 className="title-style">Профиль</h1>
             {isAuth ? (
               <>
-                <div className="mb-4">
+                <section className="mb-4">
                   {isEditing ? (
                     <div className="block-container">
                       <h2 className="subtitle-style">
@@ -132,7 +132,7 @@ const Profile = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="block-container">
+                    <section className="block-container">
                       <h2 className="subtitle-style">
                         Информация пользователя
                       </h2>
@@ -161,11 +161,11 @@ const Profile = () => {
                           colorText={'1'}
                         />
                       </div>
-                    </div>
+                    </section>
                   )}
-                </div>
+                </section>
                 <Divider />
-                <div className="block-container">
+                <section className="block-container">
                   {status === 'loaded' &&
                     (route.length > 0 ? (
                       <>
@@ -196,7 +196,7 @@ const Profile = () => {
                         />
                       </>
                     ))}
-                </div>
+                </section>
               </>
             ) : (
               <NoAuth />

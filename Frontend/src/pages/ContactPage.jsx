@@ -42,7 +42,7 @@ const ContactPage = () => {
         <section aria-labelledby="contact-info" className="mb-8">
           <h1 className="title-style">Контакты</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 ">
-            <div className="block-container">
+            <section className="block-container">
               <h2 id="contact-info" className="subtitle-style">
                 Как с нами связаться
               </h2>
@@ -69,7 +69,7 @@ const ContactPage = () => {
                   </Link>
                 </p>
               </address>
-            </div>
+            </section>
             <section className="block-container" aria-labelledby="contact-form">
               <h2 id="contact-form" className="subtitle-style">
                 Отправить сообщение

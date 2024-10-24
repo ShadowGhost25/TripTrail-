@@ -20,12 +20,12 @@ const PrivacyPolicyPage = () => {
     {
       title: '4. Права пользователей',
       text: 'Вы имеете право получить доступ к вашим персональным данным, запросить их исправление или удаление. Свяжитесь с нами по электронной почте: ',
-      adress: 'test@triptrail.com',
+      address: 'test@triptrail.com',
     },
     {
       title: '5. Контактная информация',
       text: 'Если у вас есть вопросы по поводу этой Политики конфиденциальности или обработки ваших данных, свяжитесь с нами по электронной почте: ',
-      adress: 'test@triptrail.com',
+      address: 'test@triptrail.com',
     },
   ]
   return (
@@ -35,9 +35,9 @@ const PrivacyPolicyPage = () => {
         <h1 className="title-style">Политика конфиденциальности</h1>
         {arrPrivacy.map((item, index) => (
           <>
-            <section key={index} className="block-container">
+            <article key={index} className="block-container">
               <h2 className="subtitle-style">{item.title}</h2>
-              {'adress' in item ? (
+              {'address' in item ? (
                 <>
                   <p>
                     {item.text}
@@ -46,7 +46,7 @@ const PrivacyPolicyPage = () => {
                         className="email-style"
                         to={'mailto:test@triptrail.com'}
                       >
-                        {item.adress}
+                        {item.address}
                       </Link>
                     </address>
                   </p>
@@ -54,7 +54,7 @@ const PrivacyPolicyPage = () => {
               ) : (
                 <p>{item.text}</p>
               )}
-            </section>
+            </article>
             <Divider />
           </>
         ))}

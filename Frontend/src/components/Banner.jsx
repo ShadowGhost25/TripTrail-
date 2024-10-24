@@ -7,7 +7,7 @@ const Banner = () => {
       aria-labelledby="banner-heading"
     >
       <div className="relative mx-auto max-w-screen-xl px-4 py-36 sm:px-6 lg:flex lg:items-center lg:px-8">
-        <div className="max-w-xl text-center ltr:sm:text-left ">
+        <article className="max-w-xl text-center ltr:sm:text-left ">
           <h1 className="text-left font-extrabold text-white py-14 sm:text-2xl md:text-3xl xl:text-3xl">
             Отправляйся туда, куда мечтаешь,
             <br />
@@ -36,7 +36,7 @@ const Banner = () => {
               />
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   )

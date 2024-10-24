@@ -2,7 +2,7 @@ import CustomButton from './CustomButton'
 
 const NoAuth = () => {
   return (
-    <div className="block-container">
+    <section className="block-container">
       <h2 className="test subtitle-style">
         Вы не авторизованы. Хотите авторизоваться ?
       </h2>
@@ -22,7 +22,7 @@ const NoAuth = () => {
           link={'/register'}
         />
       </div>
-    </div>
+    </section>
   )
 }
 
