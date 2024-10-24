@@ -20,10 +20,13 @@ import { selectIsAuth } from '../redux/slice/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCreateRoute } from '../redux/slice/routeSlice'
 import { Bounce, toast } from 'react-toastify'
+import LoadingSpinner from '../components/Loading'
 
 const CreateRoute = () => {
   const isAuth = useSelector(selectIsAuth)
   const { status } = useSelector((state) => state.auth)
+  const isLoadingHome = status === 'loaded'
+  console.log(isLoadingHome)
   const dispatch = useDispatch()
   const [places, setPlaces] = useState([])
   const [budget, setBudget] = useState([])
@@ -122,7 +125,6 @@ const CreateRoute = () => {
     const arrBudget = [budget]
     const params = { title, places, notes, arrBudget }
     const data = await dispatch(fetchCreateRoute(params))
-    console.log(data)
     if (data.payload !== undefined) {
       localStorage.setItem('routeUpdateSuccess', 'true')
       window.location.reload()
@@ -170,161 +172,167 @@ const CreateRoute = () => {
     }
   }, [])
   return (
-    <div className="div-container">
-      <Header />
-      <main className="main-container">
-        <h1 className="title-style">Создать маршрут</h1>
-        {isAuth && status === 'loaded' ? (
-          <>
-            <article className="block-container">
-              <CustomInput
-                htmlFor="nameRoute"
-                text="Название маршрута"
-                type="text"
-                id="nameRoute"
-                placeholder="Введите название маршрута"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </article>
-            <Divider />
-            <article className="block-container">
-              <label className="block text-lg font-bold mb-4">
-                Добавить места
-              </label>
-              <Map
-                state={{ center: mapCenter, zoom: 10 }}
-                width="100%"
-                height="400px"
-                onClick={handleMapClick}
-              >
-                <Clusterer
-                  options={{
-                    preset: 'islands#invertedVioletClusterIcons',
-                    groupByCoordinates: false,
-                  }}
-                >
-                  {places.map((place, index) => (
-                    <Placemark
-                      key={index}
-                      geometry={[place.lat, place.lng]}
-                      properties={{
-                        balloonContent: place.name,
-                      }}
-                      options={{
-                        preset:
-                          selectedPlace === place
-                            ? 'islands#redIcon'
-                            : 'islands#blueIcon',
-                      }}
-                      onClick={() => handlePlacemarkClick(place)}
-                    />
-                  ))}
-                </Clusterer>
-                <TrafficControl options={{ float: 'right' }} />
-                <FullscreenControl />
-                <ZoomControl />
-                <TypeSelector options={{ float: 'right' }} />
-
-                <ListBox data={{ content: 'Города' }}>
-                  {cities.map((city, index) => (
-                    <ListBoxItem
-                      key={index}
-                      data={{ content: city.name }}
-                      onClick={() => handleListBoxItemClick(city)}
-                    />
-                  ))}
-                </ListBox>
-              </Map>
-            </article>
-            <Divider />
-            <article className="block-container">
-              <h2 className="subtitle-style">Список мест</h2>
-              <ul>
-                {places.map((place, index) => (
-                  <li
-                    key={index}
-                    className={
-                      selectedPlace === place
-                        ? 'text-teal-800 dark:text-teal-400 mb-2 cursor-pointer'
-                        : 'mb-2 cursor-pointer'
-                    }
-                    onClick={() => handlePlacemarkClick(place)}
-                  >
-                    {place.name}
-                  </li>
-                ))}
-              </ul>
-            </article>
-            <Divider />
-            {selectedPlace && (
+    <>
+      {!isLoadingHome && window.localStorage.getItem('token') ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="div-container">
+          <Header />
+          <main className="main-container">
+            <h1 className="title-style">Создать маршрут</h1>
+            {isAuth && status === 'loaded' ? (
               <>
-                <div className="block-container">
-                  <h2 className="subtitle-style">
-                    Информация о выбранном месте
-                  </h2>
-                  <p>Название: {selectedPlace.name}</p>
-                  <p>
-                    Координаты: {selectedPlace.lat}, {selectedPlace.lng}
-                  </p>
-                  <div className="mt-2 w-[150px]">
-                    <CustomButton
-                      click={handleRemovePlace}
-                      typeStyle={'cancellation'}
-                      colorText={'4'}
-                      text={'Удалить'}
-                    />
-                  </div>
-                </div>
+                <article className="block-container">
+                  <CustomInput
+                    htmlFor="nameRoute"
+                    text="Название маршрута"
+                    type="text"
+                    id="nameRoute"
+                    placeholder="Введите название маршрута"
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </article>
                 <Divider />
-              </>
-            )}
-            <article className="block-container">
-              <CustomInput
-                text="Заметки"
-                id="Notes"
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="Введите заметки..."
-                type="textarea"
-              />
-            </article>
-            <Divider />
-            <section className="block-container">
-              <h2 className="subtitle-style">Оценка бюджета</h2>
-              <div className="grid grid-cols-3 gap-4">
-                {arrInput.map((item, index) => (
-                  <article key={index}>
-                    <CustomInput
-                      key={index}
-                      htmlFor={item.id}
-                      text={item.text}
-                      type={'number'}
-                      id={item.id}
-                      newValue={item.value}
-                      onChange={item.onChange}
-                    />
+                <article className="block-container">
+                  <label className="block text-lg font-bold mb-4">
+                    Добавить места
+                  </label>
+                  <Map
+                    state={{ center: mapCenter, zoom: 10 }}
+                    width="100%"
+                    height="400px"
+                    onClick={handleMapClick}
+                  >
+                    <Clusterer
+                      options={{
+                        preset: 'islands#invertedVioletClusterIcons',
+                        groupByCoordinates: false,
+                      }}
+                    >
+                      {places.map((place, index) => (
+                        <Placemark
+                          key={index}
+                          geometry={[place.lat, place.lng]}
+                          properties={{
+                            balloonContent: place.name,
+                          }}
+                          options={{
+                            preset:
+                              selectedPlace === place
+                                ? 'islands#redIcon'
+                                : 'islands#blueIcon',
+                          }}
+                          onClick={() => handlePlacemarkClick(place)}
+                        />
+                      ))}
+                    </Clusterer>
+                    <TrafficControl options={{ float: 'right' }} />
+                    <FullscreenControl />
+                    <ZoomControl />
+                    <TypeSelector options={{ float: 'right' }} />
+
+                    <ListBox data={{ content: 'Города' }}>
+                      {cities.map((city, index) => (
+                        <ListBoxItem
+                          key={index}
+                          data={{ content: city.name }}
+                          onClick={() => handleListBoxItemClick(city)}
+                        />
+                      ))}
+                    </ListBox>
+                  </Map>
+                </article>
+                <Divider />
+                <article className="block-container">
+                  <h2 className="subtitle-style">Список мест</h2>
+                  <ul>
+                    {places.map((place, index) => (
+                      <li
+                        key={index}
+                        className={
+                          selectedPlace === place
+                            ? 'text-teal-800 dark:text-teal-400 mb-2 cursor-pointer'
+                            : 'mb-2 cursor-pointer'
+                        }
+                        onClick={() => handlePlacemarkClick(place)}
+                      >
+                        {place.name}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+                <Divider />
+                {selectedPlace && (
+                  <>
+                    <div className="block-container">
+                      <h2 className="subtitle-style">
+                        Информация о выбранном месте
+                      </h2>
+                      <p>Название: {selectedPlace.name}</p>
+                      <p>
+                        Координаты: {selectedPlace.lat}, {selectedPlace.lng}
+                      </p>
+                      <div className="mt-2 w-[150px]">
+                        <CustomButton
+                          click={handleRemovePlace}
+                          typeStyle={'cancellation'}
+                          colorText={'4'}
+                          text={'Удалить'}
+                        />
+                      </div>
+                    </div>
+                    <Divider />
+                  </>
+                )}
+                <article className="block-container">
+                  <CustomInput
+                    text="Заметки"
+                    id="Notes"
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Введите заметки..."
+                    type="textarea"
+                  />
+                </article>
+                <Divider />
+                <section className="block-container">
+                  <h2 className="subtitle-style">Оценка бюджета</h2>
+                  <div className="grid grid-cols-3 gap-4">
+                    {arrInput.map((item, index) => (
+                      <article key={index}>
+                        <CustomInput
+                          key={index}
+                          htmlFor={item.id}
+                          text={item.text}
+                          type={'number'}
+                          id={item.id}
+                          newValue={item.value}
+                          onChange={item.onChange}
+                        />
+                      </article>
+                    ))}
+                  </div>
+                  <article className="mt-2">
+                    <h3>Общий бюджет: {calculateBudget()} рублей</h3>
                   </article>
-                ))}
-              </div>
-              <article className="mt-2">
-                <h3>Общий бюджет: {calculateBudget()} рублей</h3>
-              </article>
-            </section>
-            <div className="mt-4 md:w-[400px]">
-              <CustomButton
-                index={1}
-                text={'Сохранить маршрут'}
-                typeStyle={'primary'}
-                colorText={'1'}
-                click={handleSaveMap}
-              />
-            </div>
-          </>
-        ) : (
-          <NoAuth />
-        )}
-      </main>
-      <Footer />
-    </div>
+                </section>
+                <div className="mt-4 md:w-[400px]">
+                  <CustomButton
+                    index={1}
+                    text={'Сохранить маршрут'}
+                    typeStyle={'primary'}
+                    colorText={'1'}
+                    click={handleSaveMap}
+                  />
+                </div>
+              </>
+            ) : (
+              <NoAuth />
+            )}
+          </main>
+          <Footer />
+        </div>
+      )}
+    </>
   )
 }
 

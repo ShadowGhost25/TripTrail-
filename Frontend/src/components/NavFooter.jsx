@@ -35,6 +35,7 @@ const NavFooter = () => {
         },
         {
           text: '412421 Россия, Пенза',
+          to: 'https://yandex.ru/maps/49/penza/house/ulitsa_suvorova_66/YEwYdgZmT0ECQFtpfX5xcXthZg==/?from=api-maps&ll=45.016645%2C53.200722&origin=jsapi_2_1_79&z=19',
           d: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
         },
       ],

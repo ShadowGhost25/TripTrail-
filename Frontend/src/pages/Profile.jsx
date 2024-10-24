@@ -13,14 +13,21 @@ import LoadingSpinner from '../components/Loading'
 
 const Profile = () => {
   const isAuth = useSelector(selectIsAuth)
-  const { data, id, status } = useSelector((state) => state.auth)
-  const { route } = useSelector((state) => state.route)
+  const { data, id } = useSelector((state) => state.auth)
+  const route = useSelector((state) => state.route)
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
-  const [firstName, setFirstName] = useState(data?.firstName || '')
-  const [lastName, setLastName] = useState(data?.lastName || '')
-  const [email, setEmail] = useState(data?.email || '')
-
+  const [firstName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
+  const [email, setEmail] = useState()
+  const isLoadingHome = route.status === 'loaded'
+  useEffect(() => {
+    if (data !== null) {
+      setFirstName(data.firstName)
+      setLastName(data.lastName)
+      setEmail(data.email)
+    }
+  }, [data])
   const arrForm = [
     {
       htmlFor: 'FirstName',
@@ -70,6 +77,7 @@ const Profile = () => {
   const handleClick = async () => {
     const params = { firstName, lastName, email, id }
     const data = await dispatch(fetchUpdate(params))
+    console.log(data.payload !== undefined)
     if (data.payload !== undefined) {
       localStorage.setItem('profileUpdateSuccess', 'true')
       window.location.reload()
@@ -80,12 +88,13 @@ const Profile = () => {
     dispatch(logout())
     window.localStorage.removeItem('token')
   }
-  const isLoadingHome = status === 'loaded'
 
   return (
     <>
       {!isLoadingHome && window.localStorage.getItem('token') ? (
-        <LoadingSpinner />
+        <>
+          <LoadingSpinner />
+        </>
       ) : (
         <div className="div-container">
           <Header />
@@ -166,36 +175,35 @@ const Profile = () => {
                 </section>
                 <Divider />
                 <section className="block-container">
-                  {status === 'loaded' &&
-                    (route.length > 0 ? (
-                      <>
-                        <h2 className="subtitle-style">Мои маршруты</h2>
-                        <ul>
-                          {route.map((routeItem) => (
-                            <li key={routeItem._id} className="mb-2">
-                              <Link
-                                to={'/viewroute'}
-                                className="text-teal-600 font-bold"
-                              >
-                                {routeItem.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    ) : (
-                      <>
-                        <h2 className="test subtitle-style">
-                          У вас пока нет маршрутов. Хотите создать?
-                        </h2>
-                        <CustomButton
-                          text={'Создать маршрут'}
-                          typeStyle={'primary'}
-                          colorText={'1'}
-                          link={'/createroute'}
-                        />
-                      </>
-                    ))}
+                  {route.route.length > 0 ? (
+                    <>
+                      <h2 className="subtitle-style">Мои маршруты</h2>
+                      <ul>
+                        {route.route.map((routeItem) => (
+                          <li key={routeItem._id} className="mb-2">
+                            <Link
+                              to={'/viewroute'}
+                              className="text-teal-600 font-bold"
+                            >
+                              {routeItem.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : (
+                    <>
+                      <h2 className="test subtitle-style">
+                        У вас пока нет маршрутов. Хотите создать?
+                      </h2>
+                      <CustomButton
+                        text={'Создать маршрут'}
+                        typeStyle={'primary'}
+                        colorText={'1'}
+                        link={'/createroute'}
+                      />
+                    </>
+                  )}
                 </section>
               </>
             ) : (

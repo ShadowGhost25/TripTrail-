@@ -16,11 +16,12 @@ import { selectIsAuth } from '../redux/slice/authSlice'
 import NoAuth from '../components/NoAuth'
 import LoadingSpinner from '../components/Loading'
 import { fetchDelete } from '../redux/slice/routeSlice'
+import { Bounce, toast } from 'react-toastify'
 
 const ViewRoutes = () => {
   const isAuth = useSelector(selectIsAuth)
   const { status } = useSelector((state) => state.auth)
-  const { route } = useSelector((state) => state.route)
+  const route = useSelector((state) => state.route)
   const [selectedRoute, setSelectedRoute] = useState(null)
   const [selectedPlace, setSelectedPlace] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -36,7 +37,7 @@ const ViewRoutes = () => {
   }
 
   useEffect(() => {
-    if (status === 'loaded') {
+    if (route.status === 'loaded') {
       const button = [...document.querySelectorAll('button')].find((el) =>
         el.textContent.includes('Список маршрутов'),
       )
@@ -44,7 +45,7 @@ const ViewRoutes = () => {
         button.classList.add('pr-2')
       }
     }
-  }, [status])
+  }, [route])
   const handlePlacemarkClick = (place) => {
     setSelectedPlace(place)
   }
@@ -56,18 +57,45 @@ const ViewRoutes = () => {
       : [selectedRoute.places[0].lat, selectedRoute.places[0].lng]
   }
   const handleRemove = (id) => {
-    if (window.confirm('Вы действительно хотите удалить маршрут ?')) {
-      dispatch(fetchDelete(id))
-      window.location.reload()
-    }
+    toast.info(
+      <div>
+        <span>Вы уверены, что хотите удалить маршрут?</span>
+        <div>
+          <button
+            onClick={() => {
+              dispatch(fetchDelete(id))
+              window.location.reload()
+              toast.dismiss() // Закрыть уведомление
+            }}
+            style={{ marginRight: '10px', color: 'green' }}
+          >
+            Удалить
+          </button>
+          <button
+            style={{ marginRight: '10px', color: 'red' }}
+            onClick={() => toast.dismiss()}
+          >
+            Отмена
+          </button>
+        </div>
+      </div>,
+      {
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+        position: 'top-left',
+        autoClose: false, // Уведомление не закроется автоматически
+      },
+    )
   }
 
   return (
     <>
       {!isLoadingHome && window.localStorage.getItem('token') ? (
         <>
-          {console.log(status)}
-          {console.log(!isLoadingHome && window.localStorage.getItem('token'))}
           <LoadingSpinner />
         </>
       ) : (
@@ -77,7 +105,7 @@ const ViewRoutes = () => {
             <h1 className="title-style">Просмотр маршрутов</h1>
             {isAuth ? (
               <>
-                {route.length !== 0 ? (
+                {isLoadingHome && window.localStorage.getItem('token') ? (
                   <CustomButton
                     typeStyle={'burgermenu'}
                     click={toggleMenu}
@@ -100,7 +128,7 @@ const ViewRoutes = () => {
 
                 <section className={`${isMenuOpen ? 'block' : 'hidden'}`}>
                   <ul className="max-h-[248px] overflow-y-auto">
-                    {route.map((item, index) => (
+                    {route.route.map((item, index) => (
                       <div key={index} className="my-4">
                         <CustomButton
                           key={item.id}
@@ -226,7 +254,9 @@ const ViewRoutes = () => {
                 </section>
               </>
             ) : (
-              <NoAuth />
+              <>
+                <NoAuth />
+              </>
             )}
           </main>
           <Footer />

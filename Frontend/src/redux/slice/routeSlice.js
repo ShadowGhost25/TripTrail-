@@ -39,7 +39,7 @@ const routeSlice = createSlice({
         state.status = 'loaded'
       })
       .addCase(fetchRoute.rejected, (state) => {
-        state.status = 'error'
+        state.status = 'loaded'
       })
       //!
       .addCase(fetchCreateRoute.pending, (state) => {
@@ -50,7 +50,7 @@ const routeSlice = createSlice({
         state.status = 'loaded'
       })
       .addCase(fetchCreateRoute.rejected, (state, action) => {
-        state.status = 'error'
+        state.status = 'loaded'
         toast.error(action.error.message, {
           position: 'top-left',
           autoClose: 5000,
