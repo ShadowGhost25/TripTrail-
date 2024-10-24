@@ -3,7 +3,7 @@ import axios from '../../axios'
 import { Bounce, toast } from 'react-toastify'
 
 export const fetchRoute = createAsyncThunk('route/fetchRoute', async (id) => {
-  const { data } = await axios.get(`/route/${id}`)
+  const { data } = await axios.get(`/viewroute/${id}`)
   return data
 })
 
@@ -11,7 +11,7 @@ export const fetchCreateRoute = createAsyncThunk(
   'create/fetchCreateRoute',
   async (params) => {
     try {
-      const { data } = await axios.post('/route', params)
+      const { data } = await axios.post('/createroute', params)
       return data
     } catch (error) {
       throw new Error(error.response.data.error.msg)
@@ -19,7 +19,7 @@ export const fetchCreateRoute = createAsyncThunk(
   },
 )
 export const fetchDelete = createAsyncThunk('route/fetchDelete', async (id) => {
-  await axios.delete(`/route/${id}`)
+  await axios.delete(`/viewroute/${id}`)
 })
 const routeSlice = createSlice({
   name: 'route',

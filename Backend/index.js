@@ -22,14 +22,14 @@ app.get('/', (req, res) => {
 })
 app.get('/me', checkAuth, me)
 //!
-app.get('/route/:id', getMeRoute)
-app.post('/route', checkAuth, routeValidation, handleErrors, createRoute)
-app.delete('/route/:id', checkAuth, removeRoute)
-app.patch('/route/:id', checkAuth, routeValidation, handleErrors, updateRoute)
+app.get('/viewroute/:id', getMeRoute)
+app.post('/createroute', checkAuth, routeValidation, handleErrors, createRoute)
+app.delete('/viewroute/:id', checkAuth, removeRoute)
+app.patch('/viewroute/:id', checkAuth, routeValidation, handleErrors, updateRoute)
 //!
 app.post('/login', loginValidation, handleErrors, login)
 app.post('/register', registerValidation, handleErrors, register)
-app.patch('/user/:id',checkAuth, updateValidation, handleErrors, updateUser)
+app.patch('/user/:id', checkAuth, updateValidation, handleErrors, updateUser)
 //!
 app.listen(4444, (err) => {
     if (err) {
