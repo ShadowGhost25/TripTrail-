@@ -25,7 +25,7 @@ const ViewRoutes = () => {
   const [selectedRoute, setSelectedRoute] = useState(null)
   const [selectedPlace, setSelectedPlace] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const isLoadingHome = status === 'loaded'
+  const isLoadingHome = route.status === 'loaded'
   const dispatch = useDispatch()
 
   const calculateTotalBudget = (budget) => {
@@ -105,7 +105,7 @@ const ViewRoutes = () => {
             <h1 className="title-style">Просмотр маршрутов</h1>
             {isAuth ? (
               <>
-                {isLoadingHome && window.localStorage.getItem('token') ? (
+                {route.route.length > 0 ? (
                   <CustomButton
                     typeStyle={'burgermenu'}
                     click={toggleMenu}

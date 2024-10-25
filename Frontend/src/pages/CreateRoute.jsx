@@ -251,7 +251,7 @@ const CreateRoute = () => {
                 <article className="block-container">
                   <h2 className="subtitle-style">Список мест</h2>
                   {places.length !== 0 ? (
-                    <ul>
+                    <ul className="max-h-[248px] overflow-y-auto">
                       {places.map((place, index) => (
                         <li
                           key={index}
