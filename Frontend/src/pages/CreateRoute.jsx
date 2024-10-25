@@ -26,9 +26,9 @@ const CreateRoute = () => {
   const isAuth = useSelector(selectIsAuth)
   const { status } = useSelector((state) => state.auth)
   const isLoadingHome = status === 'loaded'
-  console.log(isLoadingHome)
   const dispatch = useDispatch()
   const [places, setPlaces] = useState([])
+  console.log(places)
   const [budget, setBudget] = useState([])
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
@@ -96,6 +96,7 @@ const CreateRoute = () => {
       id: 'Transport',
       text: 'Транспорт',
       value: budget.transport,
+      placeholder: '0',
       onChange: (e) =>
         setBudget({
           ...budget,
@@ -106,6 +107,7 @@ const CreateRoute = () => {
       id: 'Housing',
       text: 'Жилье',
       value: budget.accommodation,
+      placeholder: '0',
       onChange: (e) =>
         setBudget({
           ...budget,
@@ -116,6 +118,7 @@ const CreateRoute = () => {
       id: 'Nutrition',
       text: 'Питание',
       value: budget.food,
+      placeholder: '0',
       onChange: (e) =>
         setBudget({ ...budget, food: parseFloat(e.target.value) }),
     },
@@ -137,13 +140,15 @@ const CreateRoute = () => {
   }
   //////////////////////////!
   const handlePlacemarkClick = (place) => {
+    console.log(place)
     setMapCenter([place.lat, place.lng])
     setSelectedPlace(place)
   }
 
   const handleListBoxItemClick = (place) => {
     setMapCenter([place.lat, place.lng]) // Устанавливаем центр карты на координаты выбранного места
-    setSelectedPlace(place) // Устанавливаем выбранное место
+    console.log(place)
+    // setPlaces(place) // Устанавливаем выбранное место
   }
   const handleRemovePlace = () => {
     if (!selectedPlace) return
@@ -245,21 +250,25 @@ const CreateRoute = () => {
                 <Divider />
                 <article className="block-container">
                   <h2 className="subtitle-style">Список мест</h2>
-                  <ul>
-                    {places.map((place, index) => (
-                      <li
-                        key={index}
-                        className={
-                          selectedPlace === place
-                            ? 'text-teal-800 dark:text-teal-400 mb-2 cursor-pointer'
-                            : 'mb-2 cursor-pointer'
-                        }
-                        onClick={() => handlePlacemarkClick(place)}
-                      >
-                        {place.name}
-                      </li>
-                    ))}
-                  </ul>
+                  {places.length !== 0 ? (
+                    <ul>
+                      {places.map((place, index) => (
+                        <li
+                          key={index}
+                          className={
+                            selectedPlace === place
+                              ? 'text-teal-800 dark:text-teal-400 mb-2 cursor-pointer'
+                              : 'mb-2 cursor-pointer'
+                          }
+                          onClick={() => handlePlacemarkClick(place)}
+                        >
+                          {place.name}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <h3>У вас пока нет мест</h3>
+                  )}
                 </article>
                 <Divider />
                 {selectedPlace && (
@@ -305,6 +314,7 @@ const CreateRoute = () => {
                           text={item.text}
                           type={'number'}
                           id={item.id}
+                          placeholder={item.placeholder}
                           newValue={item.value}
                           onChange={item.onChange}
                         />

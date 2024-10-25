@@ -29,7 +29,6 @@ const AuthPage = () => {
     if (!data.error) {
       window.localStorage.setItem('token', data.payload.token)
       localStorage.setItem('isAuthenticated', 'true')
-      window.location.reload()
     } else {
       toast.error(data.error.message, {
         position: 'top-right',
